@@ -1,0 +1,23 @@
+.header {
+  height: 150px;
+  background-color: #0081c1 !important;
+
+  .header-toolbar {
+    height: 100%;
+
+    .header-left-column {
+      display: flex;
+      align-items: center;
+
+      h3 {
+        font-size: 2.5rem;
+      }
+    }
+
+    .header-right-column {
+      h6 {
+        font-weight: 400;
+      }
+    }
+  }
+}
