@@ -1,0 +1,25 @@
+.confirmed-cases-paper {
+  &.covid19-paper {
+    padding: 25px;
+  }
+
+  .confirmed-cases-title {
+    max-width: 180px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 2.5px;
+  }
+
+  .confirmed-cases-total {
+    font-family: "Comfortaa", cursive;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: 2.5px;
+    margin: 20px 0;
+  }
+
+  .confirmed-cases-description {
+    line-height: 1;
+    letter-spacing: 5px;
+  }
+}

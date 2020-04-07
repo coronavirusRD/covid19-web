@@ -1,0 +1,24 @@
+.covid19-sticky-notes {
+  margin: 0 15px 15px 15px;
+
+  &.covid19-paper {
+    padding: 10px;
+  }
+
+  &-value {
+    font-family: "Comfortaa", cursive !important;
+    font-weight: 700 !important;
+  }
+
+  &-title {
+    text-transform: uppercase;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+  }
+
+  &-description {
+    &::first-letter {
+      text-transform: uppercase;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.covid19-paper {
+  padding: 15px;
+
+  &.paper-dark {
+    background-color: black;
+    color: #fff;
+  }
+
+  &.paper-warning {
+    background-color: #f79a3a;
+    text-transform: uppercase;
+  }
+
+  &.paper-success {
+    background-color: #7ed321;
+    color: #fff;
+  }
+
+  &.paper-danger {
+    background-color: #d0021b;
+    color: #fff;
+  }
+}

@@ -1,0 +1,10 @@
+.covid19-title {
+  font-family: "Comfortaa", cursive !important;
+  font-weight: 700 !important;
+  color: #12454d;
+  margin-bottom: 16px !important;
+
+  @media (max-width: 767px) {
+    text-align: center;
+  }
+}
