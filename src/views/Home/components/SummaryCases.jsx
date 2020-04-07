@@ -5,10 +5,13 @@ import {
   ConfirmedCases,
   InfectionFactor,
   StickyNote,
-  SuspectsChart,
+  Chart,
 } from "../../../components";
+import { numberWithCommas } from "../../../utils";
 
 const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
+  const label = `${numberWithCommas(total)} casos al ${day}/${month}`;
+
   return (
     <Grid className="covid19-summary-cases" container direction="row">
       <Grid className="covid19-confirmed-cases" item lg={3}>
@@ -49,7 +52,27 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
         </Grid>
       </Grid>
       <Grid className="covid19-suspects-chart" item xs={12} lg={3}>
-        <SuspectsChart total={total} day={day} month={month} />
+        <Chart
+          id="sinave"
+          type="horizontal"
+          title="casos sospechosos reportados al sinave"
+          note="las pruebas fueron descartadas por laboratorio."
+          primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
+          labels={[label]}
+          datasets={[
+            {
+              label: "Confirmados",
+              backgroundColor: "#4a90e2",
+              data: [1828],
+            },
+            {
+              label: "Descartados",
+              fontColor: "#21262e",
+              backgroundColor: "#7ed321",
+              data: [3661],
+            },
+          ]}
+        />
       </Grid>
     </Grid>
   );

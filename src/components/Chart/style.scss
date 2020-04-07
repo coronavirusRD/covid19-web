@@ -1,0 +1,17 @@
+.covid19-chart {
+  .chart-note,
+  .chart-bottom-title,
+  .chart-bottom-description {
+    line-height: 1;
+  }
+
+  .chart-title {
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .chart-bottom-title {
+    font-weight: 700;
+  }
+}
