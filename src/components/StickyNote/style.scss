@@ -1,6 +1,10 @@
 .covid19-sticky-notes {
   margin: 0 15px 15px 15px;
 
+  @media (max-width: 768px) {
+    margin: 0 0 15px 0;
+  }
+
   &.covid19-paper {
     padding: 10px;
   }

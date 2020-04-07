@@ -5,15 +5,15 @@ import { Paper } from "../../../components";
 
 const HomeHeaderPaper = ({ year, month, weekday, day, time }) => {
   return (
-    <Grid item md={5}>
-    <Paper className="covid19-info-paper" type="dark">
-      <Typography variant="h4">{weekday}</Typography>
-      <Typography variant="h5">
-        {day} de {month} de {year}
-      </Typography>
-      <Typography variant="h5">{time}</Typography>
-    </Paper>
-  </Grid>
+    <Grid className="home-header-paper" item md={8} lg={5}>
+      <Paper className="covid19-info-paper" type="dark">
+        <Typography variant="h4">{weekday}</Typography>
+        <Typography variant="h5">
+          {day} de {month} de {year}
+        </Typography>
+        <Typography variant="h5">{time}</Typography>
+      </Paper>
+    </Grid>
   );
 };
 

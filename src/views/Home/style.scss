@@ -2,6 +2,10 @@
   .covid19-info-container {
     align-items: center;
 
+    @media (max-width: 768px) {
+      margin-bottom: 50px;
+    }
+
     .covid19-info-title {
       font-weight: 700;
     }
@@ -27,7 +31,8 @@
     }
 
     .covid19-info-paper {
-      h4, h5 {
+      h4,
+      h5 {
         font-family: "Comfortaa", cursive;
       }
 
@@ -46,9 +51,20 @@
     margin-bottom: 15px;
   }
 
+  .covid19-summary-cases {
+    .covid19-summary-cases-stack {
+      display: flex;
+    }
+  }
+
   @media (max-width: 768px) {
     .covid19-info-container {
       justify-content: center;
+
+      .home-header-paper {
+        width: 75%;
+        text-align: center;
+      }
 
       .covid19-info-title,
       .covid19-info,
@@ -58,6 +74,38 @@
 
       .covid19-info-paper {
         margin-top: 15px;
+      }
+    }
+
+    .covid19-summary-title {
+      text-align: center;
+    }
+
+    .covid19-summary-cases {
+      .covid19-confirmed-cases {
+        width: 100%;
+      }
+
+      .covid19-summary-cases-stack {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+      }
+    }
+  }
+
+  @media (max-width: 576px) {
+    .covid19-info-container {
+      .home-header-paper {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .covid19-summary-cases {
+      .covid19-summary-cases-stack {
+        display: flex;
+        flex-direction: column;
       }
     }
   }

@@ -1,9 +1,9 @@
 import "./style.scss";
 import React, { memo } from "react";
 import { Grid, Typography } from "@material-ui/core";
-import { ConfirmedCases, StickyNote } from "../../components";
-import HomeHeader from "./components/HomeHeader";
-import HomeHeaderPaper from "./components/HomeHeaderPaper";
+import Header from "./components/Header";
+import HeaderPaper from "./components/HeaderPaper";
+import SummaryCases from "./components/SummaryCases";
 
 const Home = () => {
   const date = new Date();
@@ -15,6 +15,7 @@ const Home = () => {
   });
   const year = date.getFullYear();
   const month = formatter1.format(date);
+  const monthNumber = date.getMonth() + 1;
   const weekday = formatter2.format(date);
   const day = date.getDate();
 
@@ -25,8 +26,8 @@ const Home = () => {
         container
         justify="space-between"
       >
-        <HomeHeader year={year} month={month} />
-        <HomeHeaderPaper
+        <Header year={year} month={month} />
+        <HeaderPaper
           year={year}
           month={month}
           weekday={weekday}
@@ -37,34 +38,14 @@ const Home = () => {
       <Typography className="covid19-summary-title" variant="h5">
         RESUMEN
       </Typography>
-      <Grid container direction="row">
-        <Grid item lg={3}>
-          <ConfirmedCases total={1380} />
-        </Grid>
-        <Grid item lg={3}>
-          <Grid container direction="column">
-            <Grid item>
-              <StickyNote value={96} title="aumento de confirmados" />
-            </Grid>
-            <Grid item>
-              <StickyNote
-                value={16}
-                title="pacientes recuperados"
-                description="tasa de recuperac&oacute;n 1.16%"
-                type="success"
-              />
-            </Grid>
-            <Grid item>
-              <StickyNote
-                value={60}
-                title="fallecidos"
-                description="tasa de letalidad 4% = 1/4"
-                type="danger"
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-      </Grid>
+      <SummaryCases
+        total={1380}
+        newCases={96}
+        recovered={16}
+        deceased={60}
+        day={day}
+        month={monthNumber}
+      />
     </div>
   );
 };
