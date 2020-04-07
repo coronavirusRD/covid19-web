@@ -5,6 +5,7 @@ import {
   ConfirmedCases,
   InfectionFactor,
   StickyNote,
+  SuspectsChart,
 } from "../../../components";
 
 const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
@@ -31,13 +32,13 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
               <StickyNote
                 value={deceased}
                 title="fallecidos"
-                description={`tasa de letalidad 4% = ${day}/${month}`}
+                description={`tasa de letalidad 4%`}
                 type="danger"
               />
             </Grid>
           </Grid>
         </Grid>
-        <Grid item sm={5}>
+        <Grid item sm={6}>
           <InfectionFactor
             day={day}
             month={month}
@@ -46,6 +47,9 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
             difference={0.09}
           />
         </Grid>
+      </Grid>
+      <Grid className="covid19-suspects-chart" item xs={12} lg={3}>
+        <SuspectsChart total={total} day={day} month={month} />
       </Grid>
     </Grid>
   );

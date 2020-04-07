@@ -1,8 +1,12 @@
 .covid19-sticky-notes {
-  margin: 0 15px 15px 15px;
+  margin: 0 15px 15px 0;
 
   @media (max-width: 768px) {
-    margin: 0 0 15px 0;
+    margin: 0 15px 15px 0;
+  }
+
+  @media (max-width: 576px) {
+    margin-right: 0;
   }
 
   &.covid19-paper {
