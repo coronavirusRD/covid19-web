@@ -1,5 +1,8 @@
 import "./App.scss";
-import React from "react";
+import React, { lazy, Suspense } from "react";
+import ApolloClient from "apollo-boost";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { Route, Switch } from "react-router-dom";
 import {
   CssBaseline,
   createMuiTheme,
@@ -8,8 +11,9 @@ import {
 } from "@material-ui/core";
 import Header from "./components/Layout/Header";
 import Footer from "./components/Layout/Footer";
+import CircularLoader from "./components/CircularLoader";
 
-import Home from "./views/Home";
+const Home = lazy(() => import("./views/Home"));
 
 let theme = createMuiTheme({
   palette: {
@@ -25,19 +29,29 @@ let theme = createMuiTheme({
   },
 });
 
+const client = new ApolloClient({
+  uri: "https://covid19-graphql.now.sh/",
+});
+
 theme = responsiveFontSizes(theme);
 
 const App = () => {
   return (
     <div className="covid19">
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Header />
-        <div className="covid19-content">
-          <Home />
-        </div>
-        <Footer />
-      </ThemeProvider>
+      <ApolloProvider client={client}>
+        <Suspense fallback={<CircularLoader />}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Header />
+            <div className="covid19-content">
+              <Switch>
+                <Route path="/:date?" component={Home}/>
+              </Switch>
+            </div>
+            <Footer />
+          </ThemeProvider>
+        </Suspense>
+      </ApolloProvider>
     </div>
   );
 };

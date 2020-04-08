@@ -27,8 +27,6 @@ const Chart = (props) => {
     if (props.type === BAR) Comp = BarChart;
     else if (props.type === LINE) Comp = LineChart;
 
-    console.log("COMP", Comp);
-
     return React.createElement(Comp, {
       ...pick(props, [
         "layout",
@@ -39,6 +37,7 @@ const Chart = (props) => {
         "yaxis",
         "colors",
         "data",
+        "withLabels",
       ]),
     });
   };
@@ -119,11 +118,12 @@ Chart.defaultProps = {
   },
   colors: ["#4a90e2"],
   data: [],
+  withLabels: true,
 };
 
 Chart.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.oneOf([]),
+  type: PropTypes.oneOf([BAR, LINE]),
   layout: PropTypes.oneOf([VERTICAL, HORIZONTAL]),
   dataKey: PropTypes.string.isRequired,
   height: PropTypes.number,
@@ -144,6 +144,7 @@ Chart.propTypes = {
   }),
   colors: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
+  withLabels: PropTypes.bool,
   noteLocationBottom: PropTypes.bool,
 };
 

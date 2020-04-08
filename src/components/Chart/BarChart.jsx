@@ -7,6 +7,7 @@ import {
   BarChart,
   Bar,
   CartesianGrid,
+  LabelList,
   Legend,
   Tooltip,
   XAxis,
@@ -23,6 +24,7 @@ const CovidBarChart = ({
   yaxis,
   colors,
   data,
+  withLabels,
 }) => {
   const [bars, setBars] = useState([]);
 
@@ -54,7 +56,11 @@ const CovidBarChart = ({
 
             if (colors.length > 1) color = colors[idx];
 
-            return <Bar dataKey={key} fill={color} />;
+            return (
+              <Bar key={key} dataKey={key} fill={color}>
+                {withLabels && <LabelList dataKey={key} position="top" />}
+              </Bar>
+            );
           })}
         </BarChart>
       )}
@@ -81,6 +87,7 @@ CovidBarChart.propTypes = {
   }),
   colors: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
+  withLabels: PropTypes.bool,
 };
 
 export default memo(CovidBarChart);

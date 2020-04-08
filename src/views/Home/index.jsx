@@ -1,13 +1,22 @@
 import "./style.scss";
 import React, { memo } from "react";
+import { useQuery } from "@apollo/react-hooks";
 import { Grid, Typography } from "@material-ui/core";
-import { Chart } from "../../components";
+import { Chart, CircularLoader } from "../../components";
+import { getDate } from "../../utils";
 import Header from "./components/Header";
 import HeaderPaper from "./components/HeaderPaper";
 import SummaryCases from "./components/SummaryCases";
+import { COVID_RESULTS } from "./graphql";
 
-const Home = () => {
-  const date = new Date();
+const Home = ({ match: { params } }) => {
+  const date = getDate(params.date);
+  const { loading, error, data } = useQuery(COVID_RESULTS, {
+    variables: {
+      countries: ["Dominican Republic"],
+      date: { gt: date },
+    },
+  });
   const formatter1 = new Intl.DateTimeFormat("es", {
     month: "long",
   });
@@ -19,6 +28,12 @@ const Home = () => {
   const monthNumber = date.getMonth() + 1;
   const weekday = formatter2.format(date);
   const day = date.getDate();
+
+  console.log("DATA", data);
+
+  if (!data || loading) {
+    return <CircularLoader />;
+  }
 
   return (
     <div className="home">

@@ -16,10 +16,12 @@
     font-weight: 700;
   }
 
-  .recharts-legend-wrapper {
-    ul {
-      li {
-        text-transform: capitalize;
+  .recharts-wrapper {
+    .recharts-legend-wrapper {
+      ul {
+        li {
+          text-transform: capitalize;
+        }
       }
     }
   }

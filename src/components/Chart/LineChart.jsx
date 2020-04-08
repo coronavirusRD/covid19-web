@@ -4,10 +4,11 @@ import isEmpty from "lodash/isEmpty";
 import omit from "lodash/omit";
 import AutoSizer from "react-virtualized-auto-sizer";
 import {
-  LineChart,
   CartesianGrid,
+  LabelList,
   Legend,
   Line,
+  LineChart,
   Tooltip,
   XAxis,
   YAxis,
@@ -23,6 +24,7 @@ const CovidLineChart = ({
   yaxis,
   colors,
   data,
+  withLabels,
 }) => {
   const [lines, setBars] = useState([]);
 
@@ -38,7 +40,6 @@ const CovidLineChart = ({
     <AutoSizer>
       {({ width }) => (
         <LineChart
-          className="covid19-bar-chart"
           layout={layout}
           data={data}
           width={width}
@@ -54,7 +55,11 @@ const CovidLineChart = ({
 
             if (colors.length > 1) color = colors[idx];
 
-            return <Line type="monotone" dataKey={key} stroke={color} />;
+            return (
+              <Line key={key} type="monotone" dataKey={key} stroke={color}>
+                {withLabels && <LabelList dataKey={key} position="top" />}
+              </Line>
+            );
           })}
         </LineChart>
       )}
@@ -81,6 +86,7 @@ CovidLineChart.propTypes = {
   }),
   colors: PropTypes.arrayOf(PropTypes.string),
   data: PropTypes.arrayOf(PropTypes.object),
+  withLabels: PropTypes.bool,
 };
 
 export default memo(CovidLineChart);

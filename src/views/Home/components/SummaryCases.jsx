@@ -69,6 +69,7 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
           data={[
             { name: "confirmados", confirmados: "1828", descartados: "3361" },
           ]}
+          withLabels={false}
         />
       </Grid>
     </Grid>
