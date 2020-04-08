@@ -6,20 +6,9 @@ import pick from "lodash/pick";
 import isEmpty from "lodash/isEmpty";
 import { Typography } from "@material-ui/core";
 import Paper from "../Paper";
-// import HorizontalChart from "./HorizontalChart";
-// import VerticalChart from "./VerticalChart";
-
-const VERTICAL = "vertical";
-const HORIZONTAL = "horizontal";
-
-const LEGEND = {
-  position: "bottom",
-  labels: {
-    fontFamily: "Lato",
-    fontColor: "#21262e",
-    fontWeight: "bold",
-  },
-};
+import BarChart from "./BarChart";
+import LineChart from "./LineChart";
+import { BAR, LINE, VERTICAL, HORIZONTAL } from "./constants";
 
 const Chart = (props) => {
   const getNote = () => {
@@ -32,17 +21,27 @@ const Chart = (props) => {
     );
   };
 
-  // const getChart = () => {
-  //   let Comp = undefined;
+  const getChart = () => {
+    let Comp = undefined;
 
-  //   if (props.type === VERTICAL) Comp = VerticalChart;
-  //   else if (props.type === HORIZONTAL) Comp = HorizontalChart;
+    if (props.type === BAR) Comp = BarChart;
+    else if (props.type === LINE) Comp = LineChart;
 
-  //   return React.createElement(Comp, {
-  //     ...pick(props, ["id", "labels", "datasets"]),
-  //     legend: LEGEND,
-  //   });
-  // };
+    console.log("COMP", Comp);
+
+    return React.createElement(Comp, {
+      ...pick(props, [
+        "layout",
+        "dataKey",
+        "height",
+        "strokeDasharray",
+        "xaxis",
+        "yaxis",
+        "colors",
+        "data",
+      ]),
+    });
+  };
 
   return (
     <div className={classnames("covid19-chart", props.className, props.type)}>
@@ -52,7 +51,16 @@ const Chart = (props) => {
             {props.title}
           </Typography>
           {!props.noteLocationBottom && getNote()}
-          {/* {getChart()} */}
+          <div
+            style={{
+              marginTop: "10px",
+              marginBottom: "10px",
+              width: "100%",
+              height: props.height,
+            }}
+          >
+            {getChart()}
+          </div>
           {props.noteLocationBottom && getNote()}
           {!isEmpty(props.primarySource) && (
             <div>
@@ -69,7 +77,10 @@ const Chart = (props) => {
           )}
           {!isEmpty(props.explanatoryNote) && (
             <div>
-              <Typography className="chart-bottom-explanatory-note-title" variant="subtitle1">
+              <Typography
+                className="chart-bottom-explanatory-note-title"
+                variant="subtitle1"
+              >
                 Nota aclaratoria
               </Typography>
               <Typography
@@ -88,25 +99,52 @@ const Chart = (props) => {
 
 Chart.defaultProps = {
   className: null,
-  type: "vertical",
+  type: BAR,
+  layout: HORIZONTAL,
+  dataKey: "name",
+  height: 150,
+  strokeDasharray: "3 3",
   note: "",
   explanatoryNote: "",
   noteLocationBottom: true,
-  labels: [],
-  datasets: [],
+  xaxis: {
+    dataKey: "name",
+    type: "category",
+    hide: false,
+  },
+  yaxis: {
+    dataKey: "",
+    type: "number",
+    hide: false,
+  },
+  colors: ["#4a90e2"],
+  data: [],
 };
 
 Chart.propTypes = {
-  id: PropTypes.string.isRequired,
   className: PropTypes.string,
-  type: PropTypes.oneOf(["vertical", "horizontal"]),
+  type: PropTypes.oneOf([]),
+  layout: PropTypes.oneOf([VERTICAL, HORIZONTAL]),
+  dataKey: PropTypes.string.isRequired,
+  height: PropTypes.number,
+  strokeDasharray: PropTypes.string,
   title: PropTypes.string.isRequired,
   note: PropTypes.string,
   primarySource: PropTypes.string,
   explanatoryNote: PropTypes.string,
+  xaxis: PropTypes.shape({
+    dataKey: PropTypes.string,
+    type: PropTypes.string,
+    hide: PropTypes.bool,
+  }),
+  yaxis: PropTypes.shape({
+    dataKey: PropTypes.string,
+    type: PropTypes.string,
+    hide: PropTypes.bool,
+  }),
+  colors: PropTypes.arrayOf(PropTypes.string),
+  data: PropTypes.arrayOf(PropTypes.object),
   noteLocationBottom: PropTypes.bool,
-  labels: PropTypes.arrayOf(PropTypes.string),
-  datasets: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default memo(Chart);

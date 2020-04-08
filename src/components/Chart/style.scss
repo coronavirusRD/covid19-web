@@ -12,12 +12,16 @@
     text-transform: uppercase;
   }
 
-  canvas {
-    margin: 15px 0;
-  }
-
   .chart-bottom-title {
     font-weight: 700;
+  }
+
+  .recharts-legend-wrapper {
+    ul {
+      li {
+        text-transform: capitalize;
+      }
+    }
   }
 
   .chart-bottom-explanatory-note-title {

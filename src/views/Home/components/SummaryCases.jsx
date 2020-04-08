@@ -53,24 +53,21 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
       </Grid>
       <Grid className="covid19-suspects-chart" item xs={12} lg={3}>
         <Chart
-          id="sinave"
-          type="horizontal"
+          layout="vertical"
+          height={150}
           title="casos sospechosos reportados al sinave"
           note="las pruebas fueron descartadas por laboratorio."
           primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-          labels={[label]}
-          datasets={[
-            {
-              label: "Confirmados",
-              backgroundColor: "#4a90e2",
-              data: [1828],
-            },
-            {
-              label: "Descartados",
-              fontColor: "#21262e",
-              backgroundColor: "#7ed321",
-              data: [3661],
-            },
+          xaxis={{
+            type: "number",
+          }}
+          yaxis={{
+            type: "category",
+            hide: true,
+          }}
+          colors={["#4a90e2", "#7ed321"]}
+          data={[
+            { name: "confirmados", confirmados: "1828", descartados: "3361" },
           ]}
         />
       </Grid>
