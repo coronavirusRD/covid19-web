@@ -1,6 +1,7 @@
 import "./style.scss";
 import React, { memo } from "react";
 import { Grid, Typography } from "@material-ui/core";
+import { Chart } from "../../components";
 import Header from "./components/Header";
 import HeaderPaper from "./components/HeaderPaper";
 import SummaryCases from "./components/SummaryCases";
@@ -46,6 +47,17 @@ const Home = () => {
         day={day}
         month={monthNumber}
       />
+      <Grid item xs={12}>
+        <Chart
+          id="covid19-evolution-chart"
+          className="covid19-evolution-chart"
+          title="evoluci&oacute;n del virus a nivel de casos confirmados en el pa&iacute;s"
+          note="el gr&aacute;fico comienza a partir del 20/3/2020 (m&aacute;s de 20 casos nuevos en ese d&iacute;a)"
+          primarySource="Ministerio de Salud P&uacute;blica de la R.D. | Johns Hopkins Coronavirus Resource Center"
+          explanatoryNote="Los datos reportados en la gr&aacute;fica corresponden al corte del informe presentado por el Ministerio de Salud a las 10:00 a.m. del 05/04/2020"
+          noteLocationBottom={false}
+        />
+      </Grid>
     </div>
   );
 };

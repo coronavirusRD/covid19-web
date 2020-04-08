@@ -1,7 +1,8 @@
 .covid19-chart {
   .chart-note,
   .chart-bottom-title,
-  .chart-bottom-description {
+  .chart-bottom-description,
+  .chart-bottom-explanatory-note-title {
     line-height: 1;
   }
 
@@ -11,7 +12,17 @@
     text-transform: uppercase;
   }
 
+  canvas {
+    margin: 15px 0;
+  }
+
   .chart-bottom-title {
     font-weight: 700;
+  }
+
+  .chart-bottom-explanatory-note-title {
+    font-weight: 700;
+    color: #f8ab28;
+    margin-top: 5px;
   }
 }

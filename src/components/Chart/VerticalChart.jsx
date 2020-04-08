@@ -1,10 +1,10 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { BarChart, Legend, Tooltip } from 'recharts';
+import { Bar } from "react-chartjs-2";
 
-const HorizontalChart = ({ id, labels, datasets, legend }) => {
+const VerticalChart = ({ id, labels, datasets, legend }) => {
   return (
-    <HorizontalBar
+    <Bar
       id={id}
       data={{
         labels: labels,
@@ -15,17 +15,17 @@ const HorizontalChart = ({ id, labels, datasets, legend }) => {
   );
 };
 
-HorizontalChart.defaultProps = {
+VerticalChart.defaultProps = {
   labels: [],
   datasets: [],
   legend: null,
 };
 
-HorizontalChart.propTypes = {
+VerticalChart.propTypes = {
   id: PropTypes.string.isRequired,
   labels: PropTypes.arrayOf(PropTypes.string),
   datasets: PropTypes.arrayOf(PropTypes.object),
   legend: PropTypes.object,
 };
 
-export default memo(HorizontalChart);
+export default memo(VerticalChart);
