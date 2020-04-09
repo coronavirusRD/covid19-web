@@ -1,37 +1,38 @@
 import "./style.scss";
 import React, { memo } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import isEmpty from "lodash/isEmpty";
 import { Grid, Typography } from "@material-ui/core";
 import { Chart, CircularLoader } from "../../components";
-import { getDate } from "../../utils";
+import { useFetchCovidResults } from "../../hooks";
 import Header from "./components/Header";
 import HeaderPaper from "./components/HeaderPaper";
 import SummaryCases from "./components/SummaryCases";
 import { COVID_RESULTS } from "./graphql";
 
+const date = new Date();
+
 const Home = ({ match: { params } }) => {
-  const date = getDate(params.date);
-  const { loading, error, data } = useQuery(COVID_RESULTS, {
-    variables: {
-      countries: ["Dominican Republic"],
-      date: { gt: date },
-    },
-  });
-  const formatter1 = new Intl.DateTimeFormat("es", {
-    month: "long",
-  });
-  const formatter2 = new Intl.DateTimeFormat("es", {
-    weekday: "long",
-  });
-  const year = date.getFullYear();
-  const month = formatter1.format(date);
-  const monthNumber = date.getMonth() + 1;
-  const weekday = formatter2.format(date);
-  const day = date.getDate();
+  const {
+    loading,
+    results,
+    currentData,
+    oldData,
+    year,
+    month,
+    monthNumber,
+    weekday,
+    day,
+    time,
+    isToday,
+  } = useFetchCovidResults(
+    COVID_RESULTS,
+    ["Dominican Republic"],
+    !isEmpty(params.date) ? params.date : date
+  );
 
-  console.log("DATA", data);
+  console.log("DATA", currentData);
 
-  if (!data || loading) {
+  if (!currentData || loading) {
     return <CircularLoader />;
   }
 
@@ -48,17 +49,17 @@ const Home = ({ match: { params } }) => {
           month={month}
           weekday={weekday}
           day={day}
-          time="2:30 p.m."
+          time={isToday ? time : ''}
         />
       </Grid>
       <Typography className="covid19-summary-title" variant="h5">
         RESUMEN
       </Typography>
       <SummaryCases
-        total={1380}
-        newCases={96}
-        recovered={16}
-        deceased={60}
+        total={currentData.confirmed}
+        newCases={currentData.confirmed - oldData.confirmed}
+        recovered={currentData.recovered}
+        deceased={currentData.deaths}
         day={day}
         month={monthNumber}
       />

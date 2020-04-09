@@ -14,12 +14,12 @@ const StickyNote = ({ className, type, value, title, description }) => {
       type={type}
     >
       <Grid container alignItems="center" justify="space-between">
-        <Grid item xs={4}>
+        <Grid item xs={5}>
           <Typography className="covid19-sticky-notes-value" variant="h2">
             {numberWithCommas(value)}
           </Typography>
         </Grid>
-        <Grid item xs={8}>
+        <Grid item xs={7}>
           <Typography className="covid19-sticky-notes-title" variant="h6">
             {title}
           </Typography>

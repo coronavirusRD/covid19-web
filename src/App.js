@@ -2,7 +2,7 @@ import "./App.scss";
 import React, { lazy, Suspense } from "react";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   CssBaseline,
   createMuiTheme,
@@ -38,20 +38,22 @@ theme = responsiveFontSizes(theme);
 const App = () => {
   return (
     <div className="covid19">
-      <ApolloProvider client={client}>
-        <Suspense fallback={<CircularLoader />}>
-          <ThemeProvider theme={theme}>
-            <CssBaseline />
-            <Header />
-            <div className="covid19-content">
-              <Switch>
-                <Route path="/:date?" component={Home}/>
-              </Switch>
-            </div>
-            <Footer />
-          </ThemeProvider>
-        </Suspense>
-      </ApolloProvider>
+      <BrowserRouter>
+        <ApolloProvider client={client}>
+          <Suspense fallback={<CircularLoader />}>
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Header />
+              <div className="covid19-content">
+                <Switch>
+                  <Route path="/:date?" component={Home} />
+                </Switch>
+              </div>
+              <Footer />
+            </ThemeProvider>
+          </Suspense>
+        </ApolloProvider>
+      </BrowserRouter>
     </div>
   );
 };
