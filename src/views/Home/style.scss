@@ -1,4 +1,10 @@
 .home {
+  .section {
+    &:not(:first-child) {
+      margin-top: 10rem;
+    }
+  }
+
   .covid19-chart {
     margin-top: 25px;
   }

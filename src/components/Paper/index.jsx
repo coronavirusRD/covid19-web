@@ -23,7 +23,7 @@ Paper.defaultProps = {
 
 Paper.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.oneOf(["info", "success", "warning", "danger", "dark"]),
+  type: PropTypes.oneOf(["info", "success", "warning", "danger", "dark", "note"]),
   elevation: PropTypes.number,
   children: PropTypes.oneOfType([
     PropTypes.element,

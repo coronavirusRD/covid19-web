@@ -1,0 +1,37 @@
+.covid19-growth-estimates-section {
+  .covid19-title {
+    margin-bottom: 0 !important;
+  }
+
+  .covid19-growth-estimate-item {
+    &:not(:first-child) {
+      margin-top: 32px;
+    }
+
+    &-title {
+      font-weight: 700;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+
+      .danger-text {
+        color: #d0021b;
+      }
+
+      @media (max-width: 767px) {
+        text-align: center;
+      }
+    }
+  }
+
+  .covid19-growth-estimate-sn-wrapper {
+    .covid19-sticky-notes {
+      height: 140px;
+
+      &.covid19-paper {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+}

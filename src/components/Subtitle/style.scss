@@ -1,0 +1,9 @@
+.covid19-subtitle {
+  font-weight: 700 !important;
+  color: #4a90e2;
+  margin-bottom: 16px !important;
+
+  @media (max-width: 767px) {
+    text-align: center;
+  }
+}

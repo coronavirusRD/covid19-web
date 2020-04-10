@@ -20,4 +20,17 @@
     background-color: #d0021b;
     color: #fff;
   }
+
+  &.paper-note {
+    background-color: #b8e986;
+
+    h6 {
+      font-weight: 700 !important;
+      letter-spacing: 2px;
+
+      &:not(:first-child) {
+        line-height: 1.1;
+      }
+    }
+  }
 }

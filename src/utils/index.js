@@ -1,4 +1,4 @@
-import { set, subDays } from "date-fns";
+import { set, getDate as getDay, getMonth, getYear, subDays } from "date-fns";
 import isEmpty from "lodash/isEmpty";
 
 const todaysDate = new Date();
@@ -37,4 +37,8 @@ export function getDate(date) {
     newDate: newDate,
     originalDate: originalDate,
   };
+}
+
+export function formatDate(date) {
+  return `${getDay(date)}/${getMonth(date) + 1}/${getYear(date)}`;
 }

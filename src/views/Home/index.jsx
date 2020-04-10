@@ -1,10 +1,10 @@
 import "./style.scss";
 import React, { memo } from "react";
 import isEmpty from "lodash/isEmpty";
-import { Grid, Typography } from "@material-ui/core";
 import { CircularLoader } from "../../components";
 import { useFetchCovidResults } from "../../hooks";
 import ActualStateSection from "./components/Section/ActualState";
+import GrowthEstimatesSection from "./components/Section/GrowthEstimates";
 import { COVID_RESULTS } from "./graphql";
 
 const date = new Date();
@@ -57,6 +57,7 @@ const Home = ({ match: { params } }) => {
         currentData={currentData}
         oldData={oldData}
       />
+      <GrowthEstimatesSection currentDate={currentDate} results={results} />
     </div>
   );
 };

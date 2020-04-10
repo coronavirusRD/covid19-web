@@ -1,16 +1,26 @@
-import './style.scss';
+import "./style.scss";
 import React, { memo } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { Grid, Typography } from "@material-ui/core";
+import { useDetailDate } from "../../../../../hooks";
 import Header from "./Header";
 import HeaderPaper from "./HeaderPaper";
 import SummaryCases from "./SummaryCases";
 import ConfirmedEvolutionChart from "../../Chart/ConfirmedEvolutionChart";
 import DiscardedConfirmedChart from "../../Chart/DiscardedConfirmedChart";
 
-const ActualStateSection = ({date, infectionFactor, oldInfectionFactor, results, currentData, oldData }) => {
+const ActualStateSection = ({
+  date,
+  infectionFactor,
+  oldInfectionFactor,
+  results,
+  currentData,
+  oldData,
+}) => {
+  const d = useDetailDate(results);
+
   return (
-    <div className="covid19-actual-state-section">
+    <div className="covid19-actual-state-section section">
       <Grid
         className="covid19-info-container"
         container
@@ -43,10 +53,10 @@ const ActualStateSection = ({date, infectionFactor, oldInfectionFactor, results,
         month={date.monthNumber}
       />
       <Grid item xs={12}>
-        <ConfirmedEvolutionChart results={results} />
+        <ConfirmedEvolutionChart results={results} date={d} />
       </Grid>
       <Grid item xs={12}>
-        <DiscardedConfirmedChart results={results} />
+        <DiscardedConfirmedChart results={results} date={d} />
       </Grid>
     </div>
   );
@@ -56,19 +66,19 @@ ActualStateSection.defaultProps = {
   date: {
     current: null,
     year: 0,
-    month: '',
+    month: "",
     monthNumber: 0,
-    weekday: '',
+    weekday: "",
     day: 0,
     yesterday: 0,
-    time: '',
+    time: "",
   },
   infectionFactor: 0,
   oldInfectionFactor: 0,
   results: [],
   currentData: null,
   oldData: null,
-}
+};
 
 ActualStateSection.propTypes = {
   date: PropTypes.shape({
@@ -86,6 +96,6 @@ ActualStateSection.propTypes = {
   results: PropTypes.array,
   currentData: PropTypes.object,
   oldData: PropTypes.object,
-}
+};
 
 export default memo(ActualStateSection);
