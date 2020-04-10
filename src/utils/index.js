@@ -33,7 +33,7 @@ export function getDate(date) {
   }
 
   return {
-    oldDate: subDays(newDate, 15),
+    oldDate: subDays(newDate, 20),
     newDate: newDate,
     originalDate: originalDate,
   };

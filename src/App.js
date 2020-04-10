@@ -49,7 +49,7 @@ const App = () => {
                   <Route path="/:date?" component={Home} />
                 </Switch>
               </div>
-              <Footer />
+              {/* <Footer /> */}
             </ThemeProvider>
           </Suspense>
         </ApolloProvider>

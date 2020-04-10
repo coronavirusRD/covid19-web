@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography } from "@material-ui/core";
-import { Title } from "../../../components";
+import { Title } from "../../../../../components";
 
 const HomeHeader = ({ year, month }) => {
   return (

@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography } from "@material-ui/core";
-import { Paper } from "../../../components";
+import { Paper } from "../../../../../components";
 
 const HomeHeaderPaper = ({ year, month, weekday, day, time }) => {
   return (

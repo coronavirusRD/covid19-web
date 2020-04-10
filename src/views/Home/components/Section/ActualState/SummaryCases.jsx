@@ -1,16 +1,34 @@
-import React, { memo } from "react";
+import React, { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 import {
   ConfirmedCases,
   InfectionFactor,
   StickyNote,
-  Chart,
-} from "../../../components";
-import { numberWithCommas } from "../../../utils";
+} from "../../../../../components";
+import SinaveChart from "../../Chart/SinaveChart";
 
-const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
-  const label = `${numberWithCommas(total)} casos al ${day}/${month}`;
+const SummaryCases = ({
+  total,
+  newCases,
+  recovered,
+  deceased,
+  discarded,
+  infectionFactor,
+  oldInfectionFactor,
+  date,
+}) => {
+  const [rates, setRates] = useState({
+    recovered: 0,
+    lethality: 0,
+  });
+
+  useEffect(() => {
+    setRates({
+      recovered: Math.round((recovered / total) * 100),
+      lethality: Math.round((deceased / total) * 100),
+    });
+  }, [total, recovered, deceased]);
 
   return (
     <Grid className="covid19-summary-cases" container direction="row">
@@ -20,22 +38,22 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
       <Grid className="covid19-summary-cases-stack" item md={12} lg={6}>
         <Grid item sm={6}>
           <Grid container direction="column">
-            <Grid item>
+            <Grid className="summary-cases-sn-wrapper" item>
               <StickyNote value={newCases} title="aumento de confirmados" />
             </Grid>
-            <Grid item>
+            <Grid className="summary-cases-sn-wrapper" item>
               <StickyNote
                 value={recovered}
                 title="pacientes recuperados"
-                description="tasa de recuperac&oacute;n 1.16%"
+                description={`tasa de recuperación ${rates.recovered}%`}
                 type="success"
               />
             </Grid>
-            <Grid item>
+            <Grid className="summary-cases-sn-wrapper" item>
               <StickyNote
                 value={deceased}
                 title="fallecidos"
-                description={`tasa de letalidad 4%`}
+                description={`tasa de letalidad ${rates.lethality}%`}
                 type="danger"
               />
             </Grid>
@@ -43,34 +61,15 @@ const SummaryCases = ({ total, newCases, recovered, deceased, day, month }) => {
         </Grid>
         <Grid item sm={6}>
           <InfectionFactor
-            day={day}
-            month={month}
-            today={1.07}
-            yesterday={1.16}
-            difference={0.09}
+            date={date}
+            today={infectionFactor}
+            yesterday={oldInfectionFactor}
+            difference={infectionFactor - oldInfectionFactor}
           />
         </Grid>
       </Grid>
       <Grid className="covid19-suspects-chart" item xs={12} lg={3}>
-        <Chart
-          layout="vertical"
-          height={150}
-          title="casos sospechosos reportados al sinave"
-          note="las pruebas fueron descartadas por laboratorio."
-          primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-          xaxis={{
-            type: "number",
-          }}
-          yaxis={{
-            type: "category",
-            hide: true,
-          }}
-          colors={["#4a90e2", "#7ed321"]}
-          data={[
-            { name: "confirmados", confirmados: "1828", descartados: "3361" },
-          ]}
-          withLabels={false}
-        />
+        <SinaveChart confirmed={total} discarded={discarded} />
       </Grid>
     </Grid>
   );
@@ -81,8 +80,10 @@ SummaryCases.defaultProps = {
   newCases: 0,
   recovered: 0,
   deceased: 0,
-  day: 0,
-  month: 0,
+  discarded: 0,
+  infectionFactor: 0,
+  oldInfectionFactor: 0,
+  date: null,
 };
 
 SummaryCases.propTypes = {
@@ -90,8 +91,10 @@ SummaryCases.propTypes = {
   newCases: PropTypes.number,
   recovered: PropTypes.number,
   deceased: PropTypes.number,
-  day: PropTypes.number,
-  month: PropTypes.number,
+  discarded: PropTypes.number,
+  infectionFactor: PropTypes.string,
+  oldInfectionFactor: PropTypes.string,
+  date: PropTypes.object,
 };
 
 export default memo(SummaryCases);
