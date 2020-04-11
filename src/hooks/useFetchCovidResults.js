@@ -2,17 +2,12 @@ import { useQuery } from "@apollo/react-hooks";
 import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
 import { format, isToday } from "date-fns";
+import { es } from "date-fns/locale";
 import extraData from "../resources/data";
 import { getDate, setTimeToDate } from "../utils";
 
-const formatter1 = new Intl.DateTimeFormat("es", {
-  month: "long",
-});
-const formatter2 = new Intl.DateTimeFormat("es", {
-  weekday: "long",
-});
-
 export function useFetchCovidResults(query, countries, date) {
+  console.log("DATE", date);
   const { oldDate, newDate, originalDate } = getDate(date);
   let results = [];
   let currentData = undefined;
@@ -41,10 +36,6 @@ export function useFetchCovidResults(query, countries, date) {
     currentData = results[results.length - 1];
     oldData = results[results.length - 2];
     currentDate = setTimeToDate(new Date(currentData.date));
-
-    // if (isToday(newDate) && getHours(newDate) < 14) {
-    //   newDate = subDays(newDate, 1);
-    // }
   }
 
   return {
@@ -60,9 +51,9 @@ export function useFetchCovidResults(query, countries, date) {
       : 0,
     currentDate: currentDate,
     year: currentDate.getFullYear(),
-    month: formatter1.format(currentDate),
+    month: format(currentDate, "LLLL", { locale: es }),
     monthNumber: currentDate.getMonth() + 1,
-    weekday: formatter2.format(currentDate),
+    weekday: format(currentDate, "cccc", { locale: es }),
     day: currentDate.getDate(),
     time: format(currentDate, "p"),
     isToday: isToday(currentDate),

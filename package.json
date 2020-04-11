@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://coronavirusrd.github.io/covid19-web",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.4",
     "@fortawesome/fontawesome-svg-core": "^1.2.28",
@@ -26,6 +27,8 @@
     "recharts": "^1.8.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -45,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^2.2.0"
   }
 }
