@@ -46,7 +46,7 @@ const App = () => {
               <Header />
               <div className="covid19-content">
                 <Switch>
-                  <Route path="/:date?" component={Home} />
+                  <Route path="/covid19-web/:date?" component={Home} />
                 </Switch>
               </div>
               {/* <Footer /> */}

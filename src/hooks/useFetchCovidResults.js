@@ -7,7 +7,6 @@ import extraData from "../resources/data";
 import { getDate, setTimeToDate } from "../utils";
 
 export function useFetchCovidResults(query, countries, date) {
-  console.log("DATE", date);
   const { oldDate, newDate, originalDate } = getDate(date);
   let results = [];
   let currentData = undefined;

@@ -78,6 +78,10 @@ const extra = [
   {
     date: "2020-4-9",
     discarded: 4900,
+  },
+  {
+    date: "2020-4-10",
+    discarded: 5200,
   }
 ];
 

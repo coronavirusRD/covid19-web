@@ -19,7 +19,7 @@ const ConfirmedEvolutionChart = ({ date, results }) => {
 
         return {
           name: `${getDate(date)}/${getMonth(date) + 1}`,
-          discarded: result.discarded,
+          descartados: result.discarded,
           confirmados: result.confirmed,
         };
       })}
