@@ -1,4 +1,4 @@
-import { set, getDate as getDay, getMonth, getYear, subDays } from "date-fns";
+import { set, getDate as getDay, getMonth, getYear, parseISO, subDays } from "date-fns";
 import isEmpty from "lodash/isEmpty";
 
 const todaysDate = new Date();
@@ -21,16 +21,18 @@ export function getDate(date) {
   let newDate;
   let originalDate;
 
-  if (!Date.parse(date)) {
+  if (!parseISO(date)) {
     const dateArray = !isEmpty(date) ? date.split("-") : [];
     newDate = !isEmpty(dateArray)
-      ? new Date(`${dateArray[1]}-${dateArray[0]}-${dateArray[2]}`)
+      ? new Date(dateArray[2], parseInt(dateArray[1]) - 1, dateArray[0])
       : new Date();
     originalDate = newDate;
   } else {
     newDate = setTimeToDate(date);
     originalDate = newDate;
   }
+
+  console.log("new date", newDate);
 
   return {
     oldDate: subDays(newDate, 20),

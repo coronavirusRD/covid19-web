@@ -55,7 +55,10 @@ StickyNote.defaultProps = {
 StickyNote.propTypes = {
   className: PropTypes.string,
   type: PropTypes.oneOf(["info", "success", "warning", "danger", "dark", "note"]),
-  value: PropTypes.number,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
   title: PropTypes.string.isRequired,
   description: PropTypes.string,
 };

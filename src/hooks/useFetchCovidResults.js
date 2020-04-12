@@ -11,6 +11,7 @@ export function useFetchCovidResults(query, countries, date) {
   let results = [];
   let currentData = undefined;
   let oldData = undefined;
+  let oldInfectionFactor = 0;
   let currentDate = newDate;
 
   const { data, loading } = useQuery(query, {
@@ -35,6 +36,22 @@ export function useFetchCovidResults(query, countries, date) {
     currentData = results[results.length - 1];
     oldData = results[results.length - 2];
     currentDate = setTimeToDate(new Date(currentData.date));
+    oldInfectionFactor = (
+      oldData.confirmed / results[results.length - 3].confirmed
+    ).toFixed(2);
+  } else if (!isToday(originalDate) && data && !loading) {
+    const d = `${format(newDate, "yyyy")}-${format(newDate, "M")}-${format(
+      newDate,
+      "d"
+    )}`;
+    const idx = results.findIndex((result) => result.date === d);
+    console.log(d, idx);
+    currentData = results[idx];
+    oldData = results[idx - 1];
+    currentDate = setTimeToDate(new Date(currentData.date));
+    oldInfectionFactor = (
+      oldData.confirmed / results[idx - 2].confirmed
+    ).toFixed(2);
   }
 
   return {
@@ -45,9 +62,7 @@ export function useFetchCovidResults(query, countries, date) {
     infectionFactor: !isEmpty(currentData)
       ? (currentData.confirmed / oldData.confirmed).toFixed(2)
       : 0,
-    oldInfectionFactor: !isEmpty(currentData)
-      ? (oldData.confirmed / results[results.length - 3].confirmed).toFixed(2)
-      : 0,
+    oldInfectionFactor: oldInfectionFactor,
     currentDate: currentDate,
     year: currentDate.getFullYear(),
     month: format(currentDate, "LLLL", { locale: es }),

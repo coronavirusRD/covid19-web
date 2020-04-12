@@ -1,7 +1,7 @@
 import "./style.scss";
 import React, { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { addDays, getDate, getMonth } from "date-fns";
+import { addDays, getDate, getMonth, getYear } from "date-fns";
 import { Grid, Typography } from "@material-ui/core";
 import { useDetailDate } from "../../../../../hooks";
 import { Paper, StickyNote, Subtitle, Title } from "../../../../../components";
@@ -10,9 +10,6 @@ import GrowthScenarioChart from "../../Chart/GrowthScenarioChart";
 
 const formatter1 = new Intl.DateTimeFormat("es", {
   month: "long",
-});
-const formatter2 = new Intl.DateTimeFormat("es", {
-  weekday: "long",
 });
 
 const GrowthEstimatesSection = ({ currentDate, results }) => {
@@ -27,14 +24,14 @@ const GrowthEstimatesSection = ({ currentDate, results }) => {
       const estimateDate = addDays(currentDate, 5);
 
       setDate({
-        shortEstimateDate: `${getDate(estimateDate)}/${getMonth(estimateDate)}`,
+        shortEstimateDate: `${getDate(estimateDate)}/${getMonth(estimateDate) + 1}`,
         longEstimateDate: formatDate(estimateDate),
         fullEstimateDate: `${getDate(estimateDate)} de ${formatter1.format(
           estimateDate
-        )} de ${formatter2.format(estimateDate)}`,
+        )} de ${getYear(estimateDate)}`,
         currentFormattedDate: `${getDate(currentDate)}/${getMonth(
           currentDate
-        )}`,
+        ) + 1}`,
       });
     }
   }, [currentDate]);

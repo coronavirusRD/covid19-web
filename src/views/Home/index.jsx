@@ -10,6 +10,7 @@ import { COVID_RESULTS } from "./graphql";
 const date = new Date();
 
 const Home = ({ match: { params } }) => {
+  console.log(params);
   const {
     loading,
     results,
