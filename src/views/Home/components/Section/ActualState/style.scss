@@ -66,6 +66,42 @@
     }
   }
 
+  @media (min-width: 1025px) and (max-width: 1199px) {
+    .covid19-info-container {
+      justify-content: center;
+      text-align: center;
+
+      .home-header-paper {
+        margin: 20px 0;
+      }
+    }
+
+    .covid19-summary-title {
+      text-align: center;
+    }
+
+    .covid19-summary-cases {
+      justify-content: center;
+
+      .covid19-confirmed-cases {
+        width: 100%;
+        margin-bottom: 20px;
+
+        .covid19-paper {
+          text-align: center;
+
+          .confirmed-cases-title {
+            max-width: 100%;
+          }
+        }
+      }
+
+      .covid19-summary-cases-stack {
+        padding: 0;
+      }
+    }
+  }
+
   @media (max-width: 1024px) {
     .covid19-info-container {
       justify-content: center;
@@ -93,9 +129,18 @@
     .covid19-summary-cases {
       .covid19-confirmed-cases {
         width: 100%;
+
+        .covid19-paper {
+          text-align: center;
+
+          .confirmed-cases-title {
+            max-width: 100%;
+          }
+        }
       }
 
       .covid19-summary-cases-stack {
+        width: 100%;
         display: flex;
         justify-content: space-between;
         padding: 0;
