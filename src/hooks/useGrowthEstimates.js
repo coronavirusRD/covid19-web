@@ -109,6 +109,7 @@ export function useGrowthEstimates(data) {
     formattedDate: "",
   });
   const d = useDetailDate(data.results);
+  const [items, setItems] = useState([]);
 
   useEffect(() => {
     if (data.currentDate) {
@@ -132,6 +133,10 @@ export function useGrowthEstimates(data) {
     }
   }, [d.start, data.currentDate]);
 
+  useEffect(() => {
+    setItems(getScenariosItems(date, data));
+  }, [data.infectionFactor, data.averageInfectionFactor, data.results]); //eslint-disable-line
+
   return {
     title: "Estimaciones del crecimiento del virus",
     subtitle: `Nota: extendimos las estimaciones hasta el ${
@@ -139,6 +144,6 @@ export function useGrowthEstimates(data) {
     } (+5 días) y los escenarios comienzan a partir del día ${formatDate(
       d.start
     )}`,
-    items: getScenariosItems(date, data),
+    items: items,
   };
 }
