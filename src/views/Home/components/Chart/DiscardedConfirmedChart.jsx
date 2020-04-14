@@ -1,8 +1,7 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { getDate, getMonth } from "date-fns";
 import { Chart } from "../../../../components";
-import { formatDate } from "../../../../utils";
+import { formatDate, formatToShortDate } from "../../../../utils";
 
 const ConfirmedEvolutionChart = ({ date, results }) => {
   return (
@@ -18,7 +17,7 @@ const ConfirmedEvolutionChart = ({ date, results }) => {
         const date = new Date(result.date);
 
         return {
-          name: `${getDate(date)}/${getMonth(date) + 1}`,
+          name: `${formatToShortDate(date)}`,
           descartados: result.discarded,
           confirmados: result.confirmed,
         };

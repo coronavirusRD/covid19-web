@@ -1,4 +1,11 @@
-import { set, getDate as getDay, getMonth, getYear, parseISO, subDays } from "date-fns";
+import {
+  set,
+  getDate as getDay,
+  getMonth,
+  getYear,
+  parseISO,
+  subDays,
+} from "date-fns";
 import isEmpty from "lodash/isEmpty";
 
 const todaysDate = new Date();
@@ -32,13 +39,15 @@ export function getDate(date) {
     originalDate = newDate;
   }
 
-  console.log("new date", newDate);
-
   return {
     oldDate: subDays(newDate, 20),
     newDate: newDate,
     originalDate: originalDate,
   };
+}
+
+export function formatToShortDate(date) {
+  return `${getDay(date)}/${getMonth(date) + 1}`;
 }
 
 export function formatDate(date) {

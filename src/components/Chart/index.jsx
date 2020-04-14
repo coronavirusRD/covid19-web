@@ -8,7 +8,8 @@ import { Typography } from "@material-ui/core";
 import Paper from "../Paper";
 import BarChart from "./BarChart";
 import LineChart from "./LineChart";
-import { BAR, LINE, VERTICAL, HORIZONTAL } from "./constants";
+import AreaChart from "./AreaChart";
+import { BAR, LINE, AREA, VERTICAL, HORIZONTAL } from "./constants";
 
 const Chart = (props) => {
   const getNote = () => {
@@ -26,6 +27,7 @@ const Chart = (props) => {
 
     if (props.type === BAR) Comp = BarChart;
     else if (props.type === LINE) Comp = LineChart;
+    else if (props.type === AREA) Comp = AreaChart;
 
     return React.createElement(Comp, {
       ...pick(props, [
@@ -123,7 +125,7 @@ Chart.defaultProps = {
 
 Chart.propTypes = {
   className: PropTypes.string,
-  type: PropTypes.oneOf([BAR, LINE]),
+  type: PropTypes.oneOf([BAR, LINE, AREA]),
   layout: PropTypes.oneOf([VERTICAL, HORIZONTAL]),
   dataKey: PropTypes.string.isRequired,
   height: PropTypes.number,

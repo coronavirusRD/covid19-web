@@ -18,6 +18,7 @@ const Home = ({ match: { params } }) => {
     oldData,
     infectionFactor,
     oldInfectionFactor,
+    averageInfectionFactor,
     currentDate,
     year,
     month,
@@ -58,7 +59,12 @@ const Home = ({ match: { params } }) => {
         currentData={currentData}
         oldData={oldData}
       />
-      <GrowthEstimatesSection currentDate={currentDate} results={results} />
+      <GrowthEstimatesSection
+        currentDate={currentDate}
+        infectionFactor={infectionFactor}
+        averageInfectionFactor={averageInfectionFactor}
+        results={results}
+      />
     </div>
   );
 };

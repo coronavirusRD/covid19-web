@@ -12,6 +12,7 @@ export function useFetchCovidResults(query, countries, date) {
   let currentData = undefined;
   let oldData = undefined;
   let oldInfectionFactor = 0;
+  let averageInfectionFactor = 0;
   let currentDate = newDate;
 
   const { data, loading } = useQuery(query, {
@@ -22,14 +23,28 @@ export function useFetchCovidResults(query, countries, date) {
   });
 
   if (data && !loading) {
-    results = data.results.map((result) => {
+    let average = 0;
+    let counter = 0;
+
+    results = data.results.map((result, index) => {
       let newObj = result;
       const item = find(extraData, { date: result.date });
+
+      if (index !== data.results.length - 1) {
+        counter++;
+
+        average +=
+          data.results[index + 1].confirmed !== 0 || result.confirmed !== 0
+            ? data.results[index + 1].confirmed / result.confirmed
+            : 0;
+      }
 
       if (item) Object.assign(newObj, item);
 
       return newObj;
     });
+
+    averageInfectionFactor = (average / counter).toFixed(2);
   }
 
   if (isToday(originalDate) && data && !loading) {
@@ -63,6 +78,7 @@ export function useFetchCovidResults(query, countries, date) {
       ? (currentData.confirmed / oldData.confirmed).toFixed(2)
       : 0,
     oldInfectionFactor: oldInfectionFactor,
+    averageInfectionFactor: averageInfectionFactor,
     currentDate: currentDate,
     year: currentDate.getFullYear(),
     month: format(currentDate, "LLLL", { locale: es }),

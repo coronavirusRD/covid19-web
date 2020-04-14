@@ -1,38 +1,27 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
-import { getDate, getMonth } from "date-fns";
 import { Chart } from "../../../../components";
-import { formatDate } from "../../../../utils";
 
-const GrowthScenarioChart = ({ results }) => {
+const GrowthScenarioChart = ({ data }) => {
   return (
     <Chart
       className="covid19-growth-scenario1"
-      type="line"
+      type="area"
       height={350}
       title="evoluci&oacute;n del virus en escenario # 1"
       primarySource="Johns Hopkins Coronavirus Resource Center"
-      colors={["#f79a3a", "#d0021b", "#7ed321"]}
-      data={results.map((result) => {
-        const date = new Date(result.date);
-
-        return {
-          name: `${getDate(date)}/${getMonth(date) + 1}`,
-          confirmados: result.confirmed,
-          defunciones: result.deaths,
-          recuperados: result.recovered,
-        };
-      })}
+      data={data}
+      withLabels={true}
     />
   );
 };
 
 GrowthScenarioChart.defaultProps = {
-  results: [],
+  data: [],
 };
 
 GrowthScenarioChart.propTypes = {
-  results: PropTypes.array,
+  data: PropTypes.array,
 };
 
 export default memo(GrowthScenarioChart);

@@ -82,6 +82,18 @@ const extra = [
   {
     date: "2020-4-10",
     discarded: 5200,
+  },
+  {
+    date: "2020-4-11",
+    discarded: 5500,
+  },
+  {
+    date: "2020-4-12",
+    discarded: 5800,
+  },
+  {
+    date: "2020-4-13",
+    discarded: 6100,
   }
 ];
 
