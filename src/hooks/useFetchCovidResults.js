@@ -5,7 +5,8 @@ import reverse from "lodash/reverse";
 import slice from "lodash/slice";
 import { addDays, format, isToday } from "date-fns";
 import { es } from "date-fns/locale";
-import extraData from "../resources/data";
+import extraData from "../resources/data/covid19";
+import provincesData from "../resources/data/provincias";
 import {
   formatToFullDate,
   formatToLongDate,
@@ -60,6 +61,7 @@ function getCurrentDateInfo(currentDate, startDate, endDate) {
     longEstimateDate: formatToLongDate(estimateDate),
     fullEstimateDate: formatToFullDate(estimateDate),
     year: currentDate.getFullYear(),
+    startMonth: startDate ? format(startDate, "LLLL", { locale: es }) : "",
     month: format(currentDate, "LLLL", { locale: es }),
     monthNumber: currentDate.getMonth() + 1,
     weekday: format(currentDate, "cccc", { locale: es }),
@@ -79,6 +81,7 @@ function addExtraDataToProvinces(current, nextItem) {
       const province = provinces[i];
       const confirmedPercent = (province.confirmed / current.confirmed) * 100;
       const deathsPercent = (province.deaths / current.deaths) * 100;
+      const total = find(provincesData, { name: province.name }).total;
       let provinceInfectionFactor = 0;
 
       const item = find(nextItem.provinces, {
@@ -92,11 +95,23 @@ function addExtraDataToProvinces(current, nextItem) {
         confirmedPercentage: confirmedPercent,
         deathsPercent: deathsPercent,
         infectionFactor: provinceInfectionFactor,
+        cumulativeIncidence: (province.confirmed / total) * 100000,
+        confirmedVariation: province.confirmed - item.confirmed,
       });
     }
   }
 
   return newProvincesData;
+}
+
+function addExtraDataToInsultationType(current, old) {
+  return {
+    ...current.insulation_type,
+    variationHospitable:
+      current.insulation_type.hospitable - old.insulation_type.hospitable,
+    variationDomiciliary:
+      current.insulation_type.domiciliary - old.insulation_type.domiciliary,
+  };
 }
 
 function addExtraDataToResults(results) {
@@ -106,9 +121,10 @@ function addExtraDataToResults(results) {
     const item = find(extraData, { date: result.date });
 
     if (item) {
-      item.total_tests = has(result, "confirmed") && has(item, "discarded")
-        ? result.confirmed + result.discarded
-        : 0;
+      item.total_tests =
+        has(result, "confirmed") && has(item, "discarded")
+          ? result.confirmed + result.discarded
+          : 0;
       newResults.push(Object.assign(result, item));
     }
   });
@@ -147,6 +163,7 @@ export function useFetchCovidResults(query, countries, date) {
         const infectionFactor = getInfectionFactor(result, nextItem);
         average += infectionFactor;
         result.infectionFactor = infectionFactor;
+        result.active = result.confirmed - result.deaths - result.recovered;
         result.reported_tests = Math.abs(
           result.total_tests - nextItem.total_tests
         );
@@ -155,6 +172,11 @@ export function useFetchCovidResults(query, countries, date) {
         );
 
         result.provinces = addExtraDataToProvinces(result, nextItem);
+
+        result.insulation_type = addExtraDataToInsultationType(
+          result,
+          nextItem
+        );
       }
     }
 

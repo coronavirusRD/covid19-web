@@ -53,7 +53,7 @@ const Home = ({ match: { params } }) => {
         averageInfectionFactor={averageInfectionFactor}
         results={results}
       />
-      <IndicatorsSection currentDate={date.currentDate} results={results} />
+      <IndicatorsSection currentDate={date.currentDate} startDate={date.shortStartDate} startMonth={date.startMonth} results={results} />
     </div>
   );
 };

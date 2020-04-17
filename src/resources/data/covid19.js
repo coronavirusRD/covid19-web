@@ -4868,7 +4868,7 @@ const extra = [
     discarded: 8127,
     insulation_type: {
       hospitable: 560,
-      domiciliary: 2157,
+      domiciliary: 2657,
     },
     gender: {
       women: {

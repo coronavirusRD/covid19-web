@@ -65,7 +65,7 @@ const GrowthEstimatesSection = ({
             <Grid className="covid19-growth-estimate-sn-wrapper" container>
               {item.stickyNotes.map((props, index) => {
                 return (
-                  <Grid key={`sticky-note-${index}`} item xs={12} md={4}>
+                  <Grid key={`sticky-note-${index}`} className="covid19-growth-estimate-sn-item" item xs={12} md={4}>
                     <StickyNote {...props} />
                   </Grid>
                 );

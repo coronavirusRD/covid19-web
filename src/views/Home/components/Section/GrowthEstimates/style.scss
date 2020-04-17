@@ -22,12 +22,14 @@
   }
 
   .covid19-growth-estimate-sn-wrapper {
-    .covid19-sticky-notes {
-      height: 140px;
+    .covid19-growth-estimate-sn-item {
+      .covid19-sticky-notes {
+        height: 140px;
 
-      &.covid19-paper {
-        display: flex;
-        align-items: center;
+        &.covid19-paper {
+          display: flex;
+          align-items: center;
+        }
       }
     }
   }

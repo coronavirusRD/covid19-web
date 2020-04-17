@@ -58,7 +58,7 @@ const CovidBarChart = ({
 
             return (
               <Bar key={key} dataKey={key} fill={color}>
-                {withLabels && <LabelList dataKey={key} position="top" />}
+                {withLabels && <LabelList dataKey={key} position="center" />}
               </Bar>
             );
           })}
