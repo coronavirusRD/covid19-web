@@ -1,11 +1,13 @@
 import {
   set,
+  format,
   getDate as getDay,
   getMonth,
   getYear,
   parseISO,
   subDays,
 } from "date-fns";
+import { es } from "date-fns/locale";
 import isEmpty from "lodash/isEmpty";
 
 const todaysDate = new Date();
@@ -50,6 +52,16 @@ export function formatToShortDate(date) {
   return `${getDay(date)}/${getMonth(date) + 1}`;
 }
 
-export function formatDate(date) {
+export function formatToLongDate(date) {
   return `${getDay(date)}/${getMonth(date) + 1}/${getYear(date)}`;
+}
+
+export function formatToFullDate(date) {
+  return `${getDay(date)} de ${format(date, "LLLL", {
+    locale: es,
+  })} de ${getYear(date)}`;
+}
+
+export function formatToAPIDate(date) {
+  return `${getYear(date)}-${format(date, "M")}-${format(date, "d")}`;
 }

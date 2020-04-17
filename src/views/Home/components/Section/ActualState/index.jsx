@@ -2,7 +2,6 @@ import "./style.scss";
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Grid, Typography } from "@material-ui/core";
-import { useDetailDate } from "../../../../../hooks";
 import Header from "./Header";
 import HeaderPaper from "./HeaderPaper";
 import SummaryCases from "./SummaryCases";
@@ -17,8 +16,6 @@ const ActualStateSection = ({
   currentData,
   oldData,
 }) => {
-  const d = useDetailDate(results);
-
   return (
     <div className="covid19-actual-state-section section">
       <Grid
@@ -47,16 +44,16 @@ const ActualStateSection = ({
         discarded={currentData.discarded}
         infectionFactor={infectionFactor}
         oldInfectionFactor={oldInfectionFactor}
-        date={date.current}
+        date={date.currentDate}
         day={date.day}
         yesterday={date.yesterday}
         month={date.monthNumber}
       />
       <Grid item xs={12}>
-        <ConfirmedEvolutionChart results={results} date={d} />
+        <ConfirmedEvolutionChart results={results} longStartDate={date.longStartDate} longEndDate={date.longEndDate}  />
       </Grid>
       <Grid item xs={12}>
-        <DiscardedConfirmedChart results={results} date={d} />
+        <DiscardedConfirmedChart results={results} longStartDate={date.longStartDate}/>
       </Grid>
     </div>
   );
@@ -65,6 +62,8 @@ const ActualStateSection = ({
 ActualStateSection.defaultProps = {
   date: {
     current: null,
+    longStartDate: '',
+    longEndDate: '',
     year: 0,
     month: "",
     monthNumber: 0,
@@ -83,6 +82,8 @@ ActualStateSection.defaultProps = {
 ActualStateSection.propTypes = {
   date: PropTypes.shape({
     current: PropTypes.object,
+    longStartDate: PropTypes.string,
+    longEndDate: PropTypes.string,
     year: PropTypes.number,
     month: PropTypes.string,
     monthNumber: PropTypes.number,

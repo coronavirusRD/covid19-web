@@ -1,15 +1,15 @@
 import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Chart } from "../../../../components";
-import { formatDate, formatToShortDate } from "../../../../utils";
+import { formatToShortDate } from "../../../../utils";
 
-const ConfirmedEvolutionChart = ({ date, results }) => {
+const ConfirmedEvolutionChart = ({ longStartDate, results }) => {
   return (
     <Chart
       className="covid19-confirmed-discarded-chart"
       height={350}
       title="cantidad de casos descartados y confirmados por d&iacute;a"
-      note={`el gráfico comienza a partir del ${formatDate(date.start)}`}
+      note={`el gráfico comienza a partir del ${longStartDate}`}
       primarySource="Ministerio de Salud P&uacute;blica de la R.D. | Johns Hopkins Coronavirus Resource Center"
       noteLocationBottom={false}
       colors={["#7ed321", "#d0021b"]}
@@ -27,18 +27,12 @@ const ConfirmedEvolutionChart = ({ date, results }) => {
 };
 
 ConfirmedEvolutionChart.defaultProps = {
-  date: {
-    start: null,
-    end: null,
-  },
+  longStartDate: '',
   results: [],
 };
 
 ConfirmedEvolutionChart.propTypes = {
-  date: PropTypes.shape({
-    start: PropTypes.object,
-    end: PropTypes.object,
-  }),
+  longStartDate: PropTypes.string,
   results: PropTypes.array,
 };
 

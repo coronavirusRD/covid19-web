@@ -5,9 +5,10 @@ import { CircularLoader } from "../../components";
 import { useFetchCovidResults } from "../../hooks";
 import ActualStateSection from "./components/Section/ActualState";
 import GrowthEstimatesSection from "./components/Section/GrowthEstimates";
+import IndicatorsSection from "./components/Section/IndicatorsSection";
 import { COVID_RESULTS } from "./graphql";
 
-const date = new Date();
+const today = new Date();
 
 const Home = ({ match: { params } }) => {
   console.log(params);
@@ -19,19 +20,11 @@ const Home = ({ match: { params } }) => {
     infectionFactor,
     oldInfectionFactor,
     averageInfectionFactor,
-    currentDate,
-    year,
-    month,
-    monthNumber,
-    weekday,
-    day,
-    yesterday,
-    time,
-    isToday,
+    date,
   } = useFetchCovidResults(
     COVID_RESULTS,
     ["Dominican Republic"],
-    !isEmpty(params.date) ? params.date : date
+    !isEmpty(params.date) ? params.date : today
   );
 
   console.log("DATA", results);
@@ -43,16 +36,7 @@ const Home = ({ match: { params } }) => {
   return (
     <div className="home">
       <ActualStateSection
-        date={{
-          current: currentDate,
-          year: year,
-          month: month,
-          monthNumber: monthNumber,
-          weekday: weekday,
-          day: day,
-          yesterday: yesterday,
-          time: isToday ? time : "",
-        }}
+        date={date}
         infectionFactor={infectionFactor}
         oldInfectionFactor={oldInfectionFactor}
         results={results}
@@ -60,11 +44,16 @@ const Home = ({ match: { params } }) => {
         oldData={oldData}
       />
       <GrowthEstimatesSection
-        currentDate={currentDate}
+        shortStartDate={date.shortStartDate}
+        longStartDate={date.longStartDate}
+        longEstimateDate={date.longEstimateDate}
+        shortEstimateDate={date.shortEstimateDate}
+        fullEstimateDate={date.fullEstimateDate}
         infectionFactor={infectionFactor}
         averageInfectionFactor={averageInfectionFactor}
         results={results}
       />
+      <IndicatorsSection currentDate={date.currentDate} results={results} />
     </div>
   );
 };

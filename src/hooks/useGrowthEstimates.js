@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { addDays, format, getDate, getMonth, getYear } from "date-fns";
-import { es } from "date-fns/locale";
-import { formatDate, formatToShortDate } from "../utils";
-import { useDetailDate } from "./useDetailDate";
+import { addDays, format, getYear } from "date-fns";
+import { formatToShortDate } from "../utils";
 
 function getChartData(infectionFactor, results) {
   const date = new Date(results[results.length - 1].date);
@@ -36,15 +34,14 @@ function getChartData(infectionFactor, results) {
   return items;
 }
 
-function getScenariosItems(date, data) {
-  const omsInfectionFactor = "2.00";
+function getScenariosItems(data) {
   const chartData1 = getChartData(data.averageInfectionFactor, data.results);
   const chartData2 = getChartData(data.infectionFactor, data.results);
-  const chartData3 = getChartData(omsInfectionFactor, data.results);
+  const chartData3 = getChartData(data.omsInfectionFactor, data.results);
 
   return [
     {
-      title: `usando el factor promedio de infección del ${date.shortStartDate} al ${date.currentFormattedDate}`,
+      title: `usando el factor promedio de infección del ${data.shortStartDate} al ${data.shortEstimateDate}`,
       stickyNotes: [
         {
           title: "factor promedio de infección",
@@ -52,18 +49,18 @@ function getScenariosItems(date, data) {
           type: "warning",
         },
         {
-          title: `estimación cantidad de posibles casos para el ${date.fullEstimateDate}`,
+          title: `estimación cantidad de posibles casos para el ${data.fullEstimateDate}`,
           value: chartData1[chartData1.length - 1].confirmados,
         },
         {
-          title: `Esta condición solo se da si este factor de infección se mantiene hasta el ${date.shortEstimateDate}; esto puede aumentar o disminuir.`,
+          title: `Esta condición solo se da si este factor de infección se mantiene hasta el ${data.shortEstimateDate}; esto puede aumentar o disminuir.`,
           type: "note",
         },
       ],
       chartData: chartData1,
     },
     {
-      title: `usando el factor de infección más reciente al ${date.currentFormattedDate}`,
+      title: `usando el factor de infección más reciente al ${data.shortEstimateDate}`,
       stickyNotes: [
         {
           title: "factor de infección más reciente",
@@ -71,11 +68,11 @@ function getScenariosItems(date, data) {
           type: "warning",
         },
         {
-          title: `estimación cantidad de posibles casos para el ${date.fullEstimateDate}`,
+          title: `estimación cantidad de posibles casos para el ${data.fullEstimateDate}`,
           value: chartData2[chartData2.length - 1].confirmados,
         },
         {
-          title: `Esta condición solo se da si este factor de infección se mantiene hasta el ${date.shortEstimateDate}; esto puede aumentar o disminuir.`,
+          title: `Esta condición solo se da si este factor de infección se mantiene hasta el ${data.shortEstimateDate}; esto puede aumentar o disminuir.`,
           type: "note",
         },
       ],
@@ -86,15 +83,15 @@ function getScenariosItems(date, data) {
       stickyNotes: [
         {
           title: "factor de infección menor de la oms",
-          value: omsInfectionFactor,
+          value: data.omsInfectionFactor,
           type: "warning",
         },
         {
-          title: `estimación cantidad de posibles casos para el ${date.fullEstimateDate}`,
+          title: `estimación cantidad de posibles casos para el ${data.fullEstimateDate}`,
           value: chartData3[chartData3.length - 1].confirmados,
         },
         {
-          title: `Esta condición solo se da si este factor de infección se mantiene hasta el ${date.shortEstimateDate}; esto puede aumentar o disminuir.`,
+          title: `Esta condición solo se da si este factor de infección se mantiene hasta el ${data.shortEstimateDate}; esto puede aumentar o disminuir.`,
           type: "note",
         },
       ],
@@ -104,46 +101,17 @@ function getScenariosItems(date, data) {
 }
 
 export function useGrowthEstimates(data) {
-  const [date, setDate] = useState({
-    estimateDate: "",
-    formattedDate: "",
-  });
-  const d = useDetailDate(data.results);
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    if (data.currentDate) {
-      const estimateDate = addDays(data.currentDate, 5);
-
-      setDate({
-        shortStartDate: `${getDate(d.start)}/${getMonth(d.start) + 1}`,
-        shortEstimateDate: `${getDate(estimateDate)}/${
-          getMonth(estimateDate) + 1
-        }`,
-        longEstimateDate: formatDate(estimateDate),
-        fullEstimateDate: `${getDate(estimateDate)} de ${format(
-          estimateDate,
-          "LLLL",
-          { locale: es }
-        )} de ${getYear(estimateDate)}`,
-        currentFormattedDate: `${getDate(data.currentDate)}/${
-          getMonth(data.currentDate) + 1
-        }`,
-      });
-    }
-  }, [d.start, data.currentDate]);
-
-  useEffect(() => {
-    setItems(getScenariosItems(date, data));
-  }, [data.infectionFactor, data.averageInfectionFactor, data.results]); //eslint-disable-line
+    setItems(getScenariosItems(data));
+  }, [data.results]); //eslint-disable-line
 
   return {
     title: "Estimaciones del crecimiento del virus",
     subtitle: `Nota: extendimos las estimaciones hasta el ${
-      date.longEstimateDate
-    } (+5 días) y los escenarios comienzan a partir del día ${formatDate(
-      d.start
-    )}`,
+      data.longEstimateDate
+    } (+5 días) y los escenarios comienzan a partir del día ${data.longStartDate}`,
     items: items,
   };
 }

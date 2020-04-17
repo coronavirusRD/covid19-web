@@ -1,3 +1,3 @@
-export * from "./useDetailDate";
+export * from "./useConfirmedIndicators";
 export * from "./useFetchCovidResults";
 export * from "./useGrowthEstimates";

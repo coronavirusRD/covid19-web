@@ -56,7 +56,7 @@ const CovidLineChart = ({
             if (colors.length > 1) color = colors[idx];
 
             return (
-              <Line key={key} type="monotone" dataKey={key} stroke={color}>
+              <Line key={key} type="monotone" dataKey={key} stroke={color} strokeWidth={2}>
                 {withLabels && <LabelList dataKey={key} position="top" />}
               </Line>
             );

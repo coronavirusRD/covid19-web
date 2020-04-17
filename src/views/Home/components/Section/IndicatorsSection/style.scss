@@ -1,0 +1,10 @@
+.covid19-indicators-section {
+  .covid19-indicators-charts-container {
+    div:nth-child(odd) {
+      padding-right: 15px;
+    }
+    div:nth-child(even) {
+      padding-left: 15px;
+    }
+  }
+}
