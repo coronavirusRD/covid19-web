@@ -10,8 +10,6 @@ import ConfirmedGenderChart from "../../Chart/ConfirmedGenderChart";
 const IndicatorsSection = ({ currentDate, startDate, startMonth, results }) => {
   const data = useConfirmedIndicators(currentDate, results);
 
-  console.log("DATA", data);
-
   return (
     <div className="covid19-indicators-section section">
       <Title text="Indicadores confirmados y situaci&oacute;n provincias" />

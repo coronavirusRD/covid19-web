@@ -5268,7 +5268,7 @@ const extra = [
       },
       {
         name: "Duarte",
-        confirmed: 61,
+        confirmed: 416,
         deaths: 64,
       },
       {

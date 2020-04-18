@@ -123,7 +123,7 @@ function addExtraDataToResults(results) {
     if (item) {
       item.total_tests =
         has(result, "confirmed") && has(item, "discarded")
-          ? result.confirmed + result.discarded
+          ? result.confirmed + item.discarded
           : 0;
       newResults.push(Object.assign(result, item));
     }

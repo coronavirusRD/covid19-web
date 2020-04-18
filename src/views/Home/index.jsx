@@ -11,7 +11,6 @@ import { COVID_RESULTS } from "./graphql";
 const today = new Date();
 
 const Home = ({ match: { params } }) => {
-  console.log(params);
   const {
     loading,
     results,
@@ -26,8 +25,6 @@ const Home = ({ match: { params } }) => {
     ["Dominican Republic"],
     !isEmpty(params.date) ? params.date : today
   );
-
-  console.log("DATA", results);
 
   if (!currentData || loading) {
     return <CircularLoader />;
