@@ -3,15 +3,19 @@ import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
 import reverse from "lodash/reverse";
 import slice from "lodash/slice";
-import { addDays, format, isToday } from "date-fns";
-import { es } from "date-fns/locale";
+import { addDays, isToday } from "date-fns";
 import extraData from "../resources/data/covid19";
 import provincesData from "../resources/data/provincias";
 import {
   formatToFullDate,
   formatToLongDate,
   formatToShortDate,
+  formatToAPIDate,
+  getLongWeekday,
+  getLongMonth,
   getDate,
+  getHour,
+  replaceDashDate,
   setTimeToDate,
 } from "../utils";
 import has from "lodash/has";
@@ -28,10 +32,7 @@ function getGeneralValues(results, originalDate, newDate) {
   if (isToday(originalDate)) {
     idx = results.length - 1;
   } else if (!isToday(originalDate)) {
-    const d = `${format(newDate, "yyyy")}-${format(newDate, "M")}-${format(
-      newDate,
-      "d"
-    )}`;
+    const d = formatToAPIDate(newDate);
     idx = results.findIndex((result) => result.date === d);
   }
 
@@ -41,7 +42,7 @@ function getGeneralValues(results, originalDate, newDate) {
   return {
     currentData: currentData,
     oldData: oldData,
-    currentDate: setTimeToDate(new Date(currentData.date)),
+    currentDate: setTimeToDate(new Date(replaceDashDate(currentData.date))),
     oldInfectionFactor: getInfectionFactor(oldData, results[idx - 2]),
   };
 }
@@ -61,12 +62,12 @@ function getCurrentDateInfo(currentDate, startDate, endDate) {
     longEstimateDate: formatToLongDate(estimateDate),
     fullEstimateDate: formatToFullDate(estimateDate),
     year: currentDate.getFullYear(),
-    startMonth: startDate ? format(startDate, "LLLL", { locale: es }) : "",
-    month: format(currentDate, "LLLL", { locale: es }),
+    startMonth: startDate ? getLongMonth(startDate) : "",
+    month: currentDate ? getLongMonth(currentDate) : "",
     monthNumber: currentDate.getMonth() + 1,
-    weekday: format(currentDate, "cccc", { locale: es }),
+    weekday: currentDate ? getLongWeekday(currentDate) : "",
     day: currentDate.getDate(),
-    time: format(currentDate, "p"),
+    time: getHour(currentDate),
     isToday: isToday(currentDate),
   };
 }
@@ -183,8 +184,8 @@ export function useFetchCovidResults(query, countries, date) {
     results = slice(newResults, 1, newResults.length);
 
     averageInfectionFactor = average / results.length;
-    startDate = new Date(results[0].date);
-    endDate = new Date(results[results.length - 1].date);
+    startDate = new Date(replaceDashDate(results[0].date));
+    endDate = new Date(replaceDashDate(results[results.length - 1].date));
 
     const values = getGeneralValues(results, originalDate, newDate);
 

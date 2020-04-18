@@ -1,24 +1,34 @@
 import {
   set,
-  format,
   getDate as getDay,
   getMonth,
   getYear,
   parseISO,
   subDays,
+  isValid,
 } from "date-fns";
-import { es } from "date-fns/locale";
 import isEmpty from "lodash/isEmpty";
 
 const todaysDate = new Date();
+const formatterMonth = new Intl.DateTimeFormat("es", { month: "long" });
+const formatterDay = new Intl.DateTimeFormat("es", { weekday: "long" });
+const formatterHour = new Intl.DateTimeFormat("es", {
+  hour: "numeric",
+  minute: "numeric",
+  hour12: true,
+});
 
 export function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
-export function setTimeToDate(date1, date2) {
-  const today = date2 ? date2 : todaysDate;
-  return set(new Date(date1), {
+export function replaceDashDate(date) {
+  return date.replace(/-/g, "/");
+}
+
+export function setTimeToDate(date) {
+  const today = date ? date : todaysDate;
+  return set(new Date(date), {
     hours: today.getHours(),
     minutes: today.getMinutes(),
     seconds: today.getSeconds(),
@@ -48,20 +58,36 @@ export function getDate(date) {
   };
 }
 
+export function getLongMonth(date) {
+  return isValid(date) ? formatterMonth.format(date) : "";
+}
+
+export function getLongWeekday(date) {
+  return isValid(date) ? formatterDay.format(date) : "";
+}
+
+export function getHour(date) {
+  return isValid(date) ? formatterHour.format(date) : "";
+}
+
 export function formatToShortDate(date) {
-  return `${getDay(date)}/${getMonth(date) + 1}`;
+  return isValid(date) ? `${getDay(date)}/${getMonth(date) + 1}` : "";
 }
 
 export function formatToLongDate(date) {
-  return `${getDay(date)}/${getMonth(date) + 1}/${getYear(date)}`;
+  return isValid(date)
+    ? `${getDay(date)}/${getMonth(date) + 1}/${getYear(date)}`
+    : "";
 }
 
 export function formatToFullDate(date) {
-  return `${getDay(date)} de ${format(date, "LLLL", {
-    locale: es,
-  })} de ${getYear(date)}`;
+  return isValid(date)
+    ? `${getDay(date)} de ${getLongMonth(date)} de ${getYear(date)}`
+    : "";
 }
 
 export function formatToAPIDate(date) {
-  return `${getYear(date)}-${format(date, "M")}-${format(date, "d")}`;
+  return isValid(date)
+    ? `${getYear(date)}-${getMonth(date) + 1}-${getDay(date)}`
+    : "";
 }

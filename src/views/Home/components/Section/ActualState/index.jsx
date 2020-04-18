@@ -46,7 +46,6 @@ const ActualStateSection = ({
         oldInfectionFactor={oldInfectionFactor}
         date={date.currentDate}
         day={date.day}
-        yesterday={date.yesterday}
         month={date.monthNumber}
       />
       <Grid item xs={12}>

@@ -1,10 +1,11 @@
 import "./style.scss";
 import React, { memo, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { format, subDays } from "date-fns";
+import { subDays } from "date-fns";
 import { Grid, Typography } from "@material-ui/core";
 import Paper from "../Paper";
 import InfectionDifference from "../InfectionDifference";
+import { formatToShortDate } from '../../utils';
 
 const InfectionFactor = ({
   date,
@@ -12,18 +13,12 @@ const InfectionFactor = ({
   yesterday,
   difference,
 }) => {
-  const [oldDate, setOldDate] = useState({
-    day: 0,
-    month: 0,
-  });
+  const [oldDate, setOldDate] = useState(null);
 
   useEffect(() => {
     if (date) {
       const d = subDays(date, 1);
-      setOldDate({
-        day: format(d, 'd'),
-        month: format(d, 'L'),
-      })
+      setOldDate(formatToShortDate(d));
     };
   }, [date]);
 
@@ -49,7 +44,7 @@ const InfectionFactor = ({
         </Typography>
       </Grid>
       <Typography className="infection-factor-yesterday-title" variant="h5">
-        Factor del {oldDate.day}/{oldDate.month}
+        Factor del {oldDate}
       </Typography>
       <Typography className="infection-factor-yesterday-value" variant="h5">
         {yesterday}

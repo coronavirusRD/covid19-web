@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { addDays, format, getYear } from "date-fns";
-import { formatToShortDate } from "../utils";
+import { addDays } from "date-fns";
+import { formatToShortDate, formatToAPIDate } from "../utils";
 
 function getChartData(infectionFactor, results) {
   const date = new Date(results[results.length - 1].date);
@@ -12,10 +12,7 @@ function getChartData(infectionFactor, results) {
     lastConfirmedValue = lastConfirmedValue * infectionFactor;
     const newDate = addDays(date, i);
     newDates.push({
-      date: `${getYear(newDate)}-${format(newDate, "M")}-${format(
-        newDate,
-        "d"
-      )}`,
+      date: formatToAPIDate(newDate),
       confirmed: Math.round(lastConfirmedValue),
     });
   }
