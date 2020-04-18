@@ -36,7 +36,7 @@ export function setTimeToDate(date) {
   });
 }
 
-export function getDate(date) {
+export function getDate(date, limit) {
   let newDate;
   let originalDate;
 
@@ -52,7 +52,7 @@ export function getDate(date) {
   }
 
   return {
-    oldDate: subDays(newDate, 20),
+    oldDate: subDays(newDate, limit),
     newDate: newDate,
     originalDate: originalDate,
   };

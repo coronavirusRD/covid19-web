@@ -133,8 +133,8 @@ function addExtraDataToResults(results) {
   return newResults;
 }
 
-export function useFetchCovidResults(query, countries, date) {
-  const { oldDate, newDate, originalDate } = getDate(date);
+export function useFetchCovidResults(query, countries, date, limit) {
+  const { oldDate, newDate, originalDate } = getDate(date, limit);
   let results = [];
   let isLoading = true;
   let currentData = undefined;
