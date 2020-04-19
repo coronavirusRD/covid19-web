@@ -44,12 +44,14 @@ const App = () => {
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <Header />
-              <div className="covid19-content">
-                <Switch>
-                  <Route path="/covid19-web/:date?" component={Home} />
-                </Switch>
+              <div>
+                <div className="covid19-content">
+                  <Switch>
+                    <Route path="/covid19-web/:date?" component={Home} />
+                  </Switch>
+                </div>
+                <Footer />
               </div>
-              {/* <Footer /> */}
             </ThemeProvider>
           </Suspense>
         </ApolloProvider>
