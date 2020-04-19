@@ -1,12 +1,22 @@
 import "./style.scss";
 import React, { memo } from "react";
+import { differenceInDays } from "date-fns";
 import { AppBar, Grid, Typography, Toolbar } from "@material-ui/core";
+
+const REPORTS_STARTED_DATE = "2020-03-23";
+
+const now = new Date();
 
 const Header = () => {
   return (
     <AppBar className="header" position="static">
       <Toolbar className="header-toolbar">
-        <Grid className="header-content-container" container direction="row" align="center">
+        <Grid
+          className="header-content-container"
+          container
+          direction="row"
+          align="center"
+        >
           <Grid className="header-left-column" item md={7}>
             <Typography variant="h3" align="left">
               An&aacute;lisis del crecimiento del COVID-19 en la
@@ -15,7 +25,7 @@ const Header = () => {
           </Grid>
           <Grid className="header-right-column" item md={5}>
             <Typography variant="h5" align="right">
-              INFORME #13
+              INFORME #{differenceInDays(now, new Date(REPORTS_STARTED_DATE))}
             </Typography>
             <Typography variant="h6" align="right">
               Preparado por: Ing. Juan C. Salad&iacute;n Bonilla
