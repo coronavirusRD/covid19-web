@@ -6,6 +6,7 @@ import Header from "./Header";
 import HeaderPaper from "./HeaderPaper";
 import SummaryCases from "./SummaryCases";
 import ConfirmedEvolutionChart from "../../Chart/ConfirmedEvolutionChart";
+import RecoveredEvolutionChart from "../../Chart/RecoveredEvolutionChart";
 import DiscardedConfirmedChart from "../../Chart/DiscardedConfirmedChart";
 
 const ActualStateSection = ({
@@ -49,10 +50,22 @@ const ActualStateSection = ({
         month={date.monthNumber}
       />
       <Grid item xs={12}>
-        <ConfirmedEvolutionChart results={results} longStartDate={date.longStartDate} longEndDate={date.longEndDate}  />
+        <ConfirmedEvolutionChart
+          results={results}
+          shortStartDate={date.shortStartDate}
+        />
       </Grid>
       <Grid item xs={12}>
-        <DiscardedConfirmedChart results={results} longStartDate={date.longStartDate}/>
+        <RecoveredEvolutionChart
+          results={results}
+          shortStartDate={date.shortStartDate}
+        />
+      </Grid>
+      <Grid item xs={12}>
+        <DiscardedConfirmedChart
+          results={results}
+          shortStartDate={date.shortStartDate}
+        />
       </Grid>
     </div>
   );
@@ -61,8 +74,8 @@ const ActualStateSection = ({
 ActualStateSection.defaultProps = {
   date: {
     current: null,
-    longStartDate: '',
-    longEndDate: '',
+    longStartDate: "",
+    longEndDate: "",
     year: 0,
     month: "",
     monthNumber: 0,
