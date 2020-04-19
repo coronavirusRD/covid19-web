@@ -8,7 +8,7 @@ const ConfirmedEvolutionChart = ({ shortStartDate, results }) => {
     <Chart
       className="covid19-evolution-chart"
       type="line"
-      height={500}
+      height={700}
       title="evoluci&oacute;n del virus en el pa&iacute;s"
       note={`el gráfico comienza a partir del ${shortStartDate}`}
       primarySource="Ministerio de Salud P&uacute;blica de la R.D."

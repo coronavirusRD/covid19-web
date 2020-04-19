@@ -64,7 +64,7 @@ const CovidBarChart = ({
                 stroke={color}
                 fill={color}
               >
-                {withLabels && <LabelList dataKey={key} position="top" />}
+                {withLabels && <LabelList dataKey={key} position="insideTopRight" />}
               </Area>
             );
           })}

@@ -26,6 +26,10 @@
       .covid19-sticky-notes {
         height: 140px;
 
+        h2 {
+          font-size: 2.75rem;
+        }
+
         &.covid19-paper {
           display: flex;
           align-items: center;

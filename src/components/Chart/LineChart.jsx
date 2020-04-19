@@ -57,7 +57,7 @@ const CovidLineChart = ({
 
             return (
               <Line key={key} type="monotone" dataKey={key} stroke={color} strokeWidth={2}>
-                {withLabels && <LabelList dataKey={key} position="top" />}
+                {withLabels && <LabelList dataKey={key} position="insideTopRight" />}
               </Line>
             );
           })}

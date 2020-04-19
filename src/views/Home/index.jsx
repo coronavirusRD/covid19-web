@@ -7,6 +7,7 @@ import { useFetchCovidResults } from "../../hooks";
 import ActualStateSection from "./components/Section/ActualState";
 import GrowthEstimatesSection from "./components/Section/GrowthEstimates";
 import IndicatorsSection from "./components/Section/IndicatorsSection";
+import ProvincesEvolutionFISection from "./components/Section/ProvincesEvolutionFI";
 import { COVID_RESULTS } from "./graphql";
 
 const MOBILE_LIMIT = 6;
@@ -17,9 +18,13 @@ const today = new Date();
 
 const Home = ({ match: { params } }) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.only('xs'));
-  const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const limit = isMobile ? MOBILE_LIMIT : isTablet ? TABLET_LIMIT : DESKTOP_LIMIT;
+  const isMobile = useMediaQuery(theme.breakpoints.only("xs"));
+  const isTablet = useMediaQuery(theme.breakpoints.between("sm", "md"));
+  const limit = isMobile
+    ? MOBILE_LIMIT
+    : isTablet
+    ? TABLET_LIMIT
+    : DESKTOP_LIMIT;
 
   const {
     loading,
@@ -34,7 +39,7 @@ const Home = ({ match: { params } }) => {
     COVID_RESULTS,
     ["Dominican Republic"],
     !isEmpty(params.date) ? params.date : today,
-    limit,
+    limit
   );
 
   if (!currentData || loading) {
@@ -67,6 +72,7 @@ const Home = ({ match: { params } }) => {
         startMonth={date.startMonth}
         results={results}
       />
+      <ProvincesEvolutionFISection />
     </div>
   );
 };
