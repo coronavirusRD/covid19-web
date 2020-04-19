@@ -1,16 +1,13 @@
 import "./style.scss";
 import React, { memo } from "react";
 import PropTypes from "prop-types";
-import filter from "lodash/filter";
 import orderBy from "lodash/orderBy";
-import { addDays } from "date-fns";
 import { formatToShortDate } from "../../../../../utils";
 import { Grid } from "@material-ui/core";
 import { Chart, Title } from "../../../../../components";
 import Explaination from "./Explaination";
 
 const ProvincesEvolutionFISectionSection = ({
-  startDate,
   currentData,
   results,
 }) => {
@@ -59,13 +56,11 @@ const ProvincesEvolutionFISectionSection = ({
 };
 
 ProvincesEvolutionFISectionSection.defaultProps = {
-  startDate: null,
   currentData: undefined,
   results: [],
 };
 
 ProvincesEvolutionFISectionSection.propTypes = {
-  startDate: PropTypes.object,
   currentData: PropTypes.object,
   results: PropTypes.array,
 };

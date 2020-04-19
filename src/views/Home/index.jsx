@@ -73,7 +73,6 @@ const Home = ({ match: { params } }) => {
         results={results}
       />
       <ProvincesEvolutionFISection
-        startDate={date.startDate}
         currentData={currentData}
         results={results}
       />

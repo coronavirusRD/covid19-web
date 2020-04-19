@@ -3,7 +3,7 @@ import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
 import reverse from "lodash/reverse";
 import slice from "lodash/slice";
-import { addDays, isToday } from "date-fns";
+import { addDays, differenceInDays, isToday } from "date-fns";
 import extraData from "../resources/data/covid19";
 import provincesData from "../resources/data/provincias";
 import {
@@ -154,8 +154,19 @@ export function useFetchCovidResults(query, countries, date, limit) {
   });
 
   if (data && !loading) {
+    let newResults = data.results;
     let average = 0;
-    const newResults = addExtraDataToResults(data.results);
+    const lastAPIDate = new Date(newResults[newResults.length - 1].date);
+    const lastCovid19Date = new Date(extraData[extraData.length - 1].date);
+    const needToAddNewData =
+      differenceInDays(lastCovid19Date, lastAPIDate) >= 1;
+    const newData = { date: formatToAPIDate(new Date()) };
+
+    /* The API we are using right now is adding today's data at 8:00 PM and DR new report is at 10 AM,
+    so we need to manually insert the data */
+    if (needToAddNewData) newResults = newResults.concat(newData);
+
+    newResults = addExtraDataToResults(newResults);
 
     for (let i = newResults.length - 1; i >= 0; i--) {
       const result = newResults[i];
@@ -185,6 +196,7 @@ export function useFetchCovidResults(query, countries, date, limit) {
     results = slice(newResults, 1, newResults.length);
 
     averageInfectionFactor = average / results.length;
+    console.log("RESULTS", results);
     startDate = new Date(replaceDashDate(results[0].date));
     endDate = new Date(replaceDashDate(results[results.length - 1].date));
 

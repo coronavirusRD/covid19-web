@@ -5583,6 +5583,189 @@ const extra = [
       },
     ],
   },
+  {
+    date: "2020-4-19",
+    confirmed: 4680,
+    deaths: 226,
+    recovered: 363,
+    discarded: 10903,
+    insulation_type: {
+      hospitable: 862,
+      domiciliary: 3229,
+    },
+    gender: {
+      women: {
+        confirmed: 2153,
+        deaths: 48,
+      },
+      men: {
+        confirmed: 2527,
+        deaths: 178,
+      },
+    },
+    provinces: [
+      {
+        name: "Azua",
+        confirmed: 22,
+        deaths: 1,
+      },
+      {
+        name: "Bahoruco",
+        confirmed: 4,
+        deaths: 1,
+      },
+      {
+        name: "Barahona",
+        confirmed: 25,
+        deaths: 1,
+      },
+      {
+        name: "Dajabón",
+        confirmed: 1,
+        deaths: 0,
+      },
+      {
+        name: "Distrito Nacional",
+        confirmed: 1198,
+        deaths: 30,
+      },
+      {
+        name: "Duarte",
+        confirmed: 461,
+        deaths: 68,
+      },
+      {
+        name: "Elías Piña",
+        confirmed: 0,
+        deaths: 0,
+      },
+      {
+        name: "El Seibo",
+        confirmed: 4,
+        deaths: 1,
+      },
+      {
+        name: "Espaillat",
+        confirmed: 137,
+        deaths: 4,
+      },
+      {
+        name: "Independencia",
+        confirmed: 1,
+        deaths: 0,
+      },
+      {
+        name: "Hato Mayor",
+        confirmed: 9,
+        deaths: 1,
+      },
+      {
+        name: "Hermanas Mirabal",
+        confirmed: 121,
+        deaths: 9,
+      },
+      {
+        name: "La Altagracia",
+        confirmed: 90,
+        deaths: 1,
+      },
+      {
+        name: "La Romana",
+        confirmed: 89,
+        deaths: 2,
+      },
+      {
+        name: "La Vega",
+        confirmed: 330,
+        deaths: 7,
+      },
+      {
+        name: "María Trinidad Sánchez",
+        confirmed: 64,
+        deaths: 2,
+      },
+      {
+        name: "Monseñor Nouel",
+        confirmed: 133,
+        deaths: 3,
+      },
+      {
+        name: "Monte Plata",
+        confirmed: 11,
+        deaths: 3,
+      },
+      {
+        name: "Monte Cristi",
+        confirmed: 15,
+        deaths: 0,
+      },
+      {
+        name: "Pedernales",
+        confirmed: 3,
+        deaths: 0,
+      },
+      {
+        name: "Peravia",
+        confirmed: 34,
+        deaths: 1,
+      },
+      {
+        name: "Puerto Plata",
+        confirmed: 143,
+        deaths: 9,
+      },
+      {
+        name: "Samaná",
+        confirmed: 19,
+        deaths: 1,
+      },
+      {
+        name: "Sánchez Ramírez",
+        confirmed: 118,
+        deaths: 5,
+      },
+      {
+        name: "San Cristóbal",
+        confirmed: 114,
+        deaths: 3,
+      },
+      {
+        name: "San Pedro de Macorís",
+        confirmed: 53,
+        deaths: 7,
+      },
+      {
+        name: "San Juan",
+        confirmed: 32,
+        deaths: 3,
+      },
+      {
+        name: "Santiago Rodríguez",
+        confirmed: 16,
+        deaths: 0,
+      },
+      {
+        name: "Santo Domingo",
+        confirmed: 807,
+        deaths: 34,
+      },
+      {
+        name: "Santiago",
+        confirmed: 594,
+        deaths: 28,
+      },
+      {
+        name: "San José de Ocoa",
+        confirmed: 4,
+        deaths: 2,
+      },
+      {
+        name: "Valverde",
+        confirmed: 28,
+        deaths: 1,
+      },
+    ],
+  },
 ];
 
 export default extra;
