@@ -52,6 +52,7 @@ function getCurrentDateInfo(currentDate, startDate, endDate) {
 
   return {
     currentDate: currentDate,
+    startDate: startDate,
     shorCurrentDate: formatToShortDate(currentDate),
     longCurrentDate: formatToLongDate(currentDate),
     shortStartDate: formatToShortDate(startDate),

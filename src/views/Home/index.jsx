@@ -72,7 +72,11 @@ const Home = ({ match: { params } }) => {
         startMonth={date.startMonth}
         results={results}
       />
-      <ProvincesEvolutionFISection />
+      <ProvincesEvolutionFISection
+        startDate={date.startDate}
+        currentData={currentData}
+        results={results}
+      />
     </div>
   );
 };
