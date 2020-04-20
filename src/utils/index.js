@@ -8,6 +8,8 @@ import {
   isValid,
 } from "date-fns";
 import isEmpty from "lodash/isEmpty";
+import orderBy from "lodash/orderBy";
+import slice from "lodash/slice";
 
 const todaysDate = new Date();
 const formatterMonth = new Intl.DateTimeFormat("es", { month: "long" });
@@ -24,6 +26,10 @@ export function numberWithCommas(x) {
 
 export function replaceDashDate(date) {
   return date.replace(/-/g, "/");
+}
+
+export function getTopProvincesByKey(provinces, key, direction = "desc", end = 5) {
+  return slice(orderBy(provinces, [key], [direction]), 0, end);
 }
 
 export function setTimeToDate(date) {

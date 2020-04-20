@@ -1,0 +1,15 @@
+.covid19-provinces-confirmed-evolution-section {
+  .covid19-hospitable-variation-chart-wrapper {
+    &:nth-child(even) {
+      padding-left: 0;
+      padding-right: 15px;
+    }
+  }
+
+  .covid19-domiciliary-variation-chart-wrapper {
+    &:nth-child(odd) {
+      padding-left: 15px;
+      padding-right: 0;
+    }
+  }
+}

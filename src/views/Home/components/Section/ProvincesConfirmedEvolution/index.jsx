@@ -3,86 +3,20 @@ import React, { memo } from "react";
 import PropTypes from "prop-types";
 import { Grid } from "@material-ui/core";
 import { Chart, Title } from "../../../../../components";
-import { useConfirmedIndicators } from "../../../../../hooks";
-import InsulationTypeChart from "../../Chart/InsulationTypeChart";
-import ConfirmedGenderChart from "../../Chart/ConfirmedGenderChart";
+import { useProvincesConfirmedEvolution } from "../../../../../hooks";
 
-const IndicatorsSection = ({ currentDate, startDate, startMonth, results }) => {
-  const data = useConfirmedIndicators(currentDate, results);
+const ProvincesConfirmedEvolutionSection = ({
+  currentDate,
+  startDate,
+  startMonth,
+  results,
+}) => {
+  const data = useProvincesConfirmedEvolution(currentDate, results);
 
   return (
-    <div className="covid19-indicators-section section">
-      <Title text="Indicadores confirmados y situaci&oacute;n provincias" />
-      <Grid className="covid19-indicators-charts-container" container>
-        <Grid item md={6}>
-          <InsulationTypeChart results={results} />
-        </Grid>
-        <Grid item md={6}>
-          <ConfirmedGenderChart results={results} />
-        </Grid>
-
-        <Grid item md={6}>
-          <Chart
-            className="covid19-provices-most-confirmed-chart"
-            height={275}
-            title="las 5 provincias con m&aacute;s casos confirmados"
-            primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-            colors={["#6090d7", "#f79a3a"]}
-            data={data.provincesTopConfirmed}
-          />
-        </Grid>
-        <Grid item md={6}>
-          <Chart
-            className="covid19-provinces-most-confirmed-percentage-chart"
-            height={275}
-            title={`provincias abarcan ${data.totalConfirmed} de casos confirmados`}
-            primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-            colors={["#6090d7"]}
-            data={data.provincesTopConfirmedPercent}
-          />
-        </Grid>
-        <Grid item md={6}>
-          <Chart
-            className="covid19-provinces-top-confirmed-fi-chart"
-            type="line"
-            height={275}
-            title="factor de infecci&oacute;n prov. con mayor confirmados"
-            primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-            colors={["#7ed321"]}
-            data={data.provincesTopFI}
-          />
-        </Grid>
-        <Grid item md={6}>
-          <Chart
-            className="covid19-infection-factor-chart"
-            type="line"
-            height={275}
-            title="evoluci&oacute;n del factor de infecci&oacute;n nacional"
-            primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-            colors={["#b664fe"]}
-            data={data.factorInfectionResults}
-          />
-        </Grid>
-        <Grid item md={6}>
-          <Chart
-            className="covid19-confirmed-percentage-chart"
-            height={275}
-            title="variac&oacute;n % de los casos confirmados"
-            primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-            colors={["#f79a3a"]}
-            data={data.confirmedPercentageResults}
-          />
-        </Grid>
-        <Grid item md={6}>
-          <Chart
-            className="covid19-reported-tests-chart"
-            height={275}
-            title="cantidad de pruebas reportadas por dia"
-            primarySource="Sistema Nacional de Vigilancia Epidemiol&oacute;gica (SINAVE)"
-            colors={["#b664fe"]}
-            data={data.reportedTestResults}
-          />
-        </Grid>
+    <div className="covid19-provinces-confirmed-evolution-section section">
+      <Title text="Evoluci&oacute;n confirmados y situaci&oacute;n provincias" />
+      <Grid container>
         <Grid
           className="covid19-provinces-confirmed-chart-wrapper"
           xs={12}
@@ -134,8 +68,7 @@ const IndicatorsSection = ({ currentDate, startDate, startMonth, results }) => {
             data={data.domiciliaryResults}
           />
         </Grid>
-      </Grid>
-      <Grid
+        <Grid
           className="covid19-top-provinces-confirmed-chart-wrapper"
           item
           xs={12}
@@ -164,7 +97,11 @@ const IndicatorsSection = ({ currentDate, startDate, startMonth, results }) => {
             data={data.activeResultsData}
           />
         </Grid>
-        <Grid className="covid19-new-cases-provinces-chart-wrapper" item xs={12}>
+        <Grid
+          className="covid19-new-cases-provinces-chart-wrapper"
+          item
+          xs={12}
+        >
           <Chart
             className="covid19-new-cases-provinces-chart"
             height={500}
@@ -173,22 +110,23 @@ const IndicatorsSection = ({ currentDate, startDate, startMonth, results }) => {
             data={data.provincesNewConfirmedData}
           />
         </Grid>
+      </Grid>
     </div>
   );
 };
 
-IndicatorsSection.defaultProps = {
+ProvincesConfirmedEvolutionSection.defaultProps = {
   currentDate: null,
   startDate: "",
   startMonth: "",
   results: [],
 };
 
-IndicatorsSection.propTypes = {
+ProvincesConfirmedEvolutionSection.propTypes = {
   currentDate: PropTypes.object,
   startDate: PropTypes.string,
   startMonth: PropTypes.string,
   results: PropTypes.array,
 };
 
-export default memo(IndicatorsSection);
+export default memo(ProvincesConfirmedEvolutionSection);

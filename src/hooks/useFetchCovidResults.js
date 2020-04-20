@@ -75,6 +75,7 @@ function getCurrentDateInfo(currentDate, startDate, endDate) {
 
 function addExtraDataToProvinces(current, nextItem) {
   const newProvincesData = [];
+  const totalDeaths = current.deaths;
 
   if (has(current, "provinces")) {
     const provinces = reverse(current.provinces);
@@ -96,6 +97,7 @@ function addExtraDataToProvinces(current, nextItem) {
         ...province,
         confirmedPercentage: confirmedPercent,
         deathsPercent: deathsPercent,
+        deathsRate: province.deaths / totalDeaths,
         infectionFactor: provinceInfectionFactor,
         cumulativeIncidence: (province.confirmed / total) * 100000,
         confirmedVariation: province.confirmed - item.confirmed,
@@ -177,6 +179,7 @@ export function useFetchCovidResults(query, countries, date, limit) {
         average += infectionFactor;
         result.infectionFactor = infectionFactor;
         result.active = result.confirmed - result.deaths - result.recovered;
+        result.newDeaths = result.deaths - nextItem.deaths;
         result.reported_tests = Math.abs(
           result.total_tests - nextItem.total_tests
         );
@@ -196,7 +199,6 @@ export function useFetchCovidResults(query, countries, date, limit) {
     results = slice(newResults, 1, newResults.length);
 
     averageInfectionFactor = average / results.length;
-    console.log("RESULTS", results);
     startDate = new Date(replaceDashDate(results[0].date));
     endDate = new Date(replaceDashDate(results[results.length - 1].date));
 

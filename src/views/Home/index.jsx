@@ -6,8 +6,10 @@ import { CircularLoader } from "../../components";
 import { useFetchCovidResults } from "../../hooks";
 import ActualStateSection from "./components/Section/ActualState";
 import GrowthEstimatesSection from "./components/Section/GrowthEstimates";
-import IndicatorsSection from "./components/Section/IndicatorsSection";
+import ProvincesConfirmedIndicatorsSection from "./components/Section/ProvincesConfirmedIndicators";
+import ProvincesConfirmedEvolution from "./components/Section/ProvincesConfirmedEvolution";
 import ProvincesEvolutionFISection from "./components/Section/ProvincesEvolutionFI";
+import DeathIndicatorsSection from "./components/Section/DeathIndicators";
 import { COVID_RESULTS } from "./graphql";
 
 const MOBILE_LIMIT = 6;
@@ -66,7 +68,11 @@ const Home = ({ match: { params } }) => {
         averageInfectionFactor={averageInfectionFactor}
         results={results}
       />
-      <IndicatorsSection
+      <ProvincesConfirmedIndicatorsSection
+        currentDate={date.currentDate}
+        results={results}
+      />
+      <ProvincesConfirmedEvolution
         currentDate={date.currentDate}
         startDate={date.shortStartDate}
         startMonth={date.startMonth}
@@ -74,6 +80,11 @@ const Home = ({ match: { params } }) => {
       />
       <ProvincesEvolutionFISection
         currentData={currentData}
+        results={results}
+      />
+      <DeathIndicatorsSection
+        currentDate={date.currentDate}
+        longStartDate={date.longStartDate}
         results={results}
       />
     </div>
