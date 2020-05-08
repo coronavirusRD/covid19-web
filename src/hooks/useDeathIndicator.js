@@ -29,7 +29,7 @@ function getTopProvincesDeathsRate(provinces) {
   return provinces.map((province) => {
     return {
       name: province.name,
-      "tasa letalidad": parseInt((province.deathsRate * 100).toFixed()),
+      "% tasa letalidad": parseInt((province.deathsRate * 1000).toFixed()),
     };
   });
 }

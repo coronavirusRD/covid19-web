@@ -1,5 +1,6 @@
 import {
   set,
+  differenceInDays,
   getDate as getDay,
   getMonth,
   getYear,
@@ -10,6 +11,8 @@ import {
 import isEmpty from "lodash/isEmpty";
 import orderBy from "lodash/orderBy";
 import slice from "lodash/slice";
+
+const REPORTS_STARTED_DATE = "2020-03-23";
 
 const todaysDate = new Date();
 const formatterMonth = new Intl.DateTimeFormat("es", { month: "long" });
@@ -30,6 +33,10 @@ export function replaceDashDate(date) {
 
 export function getTopProvincesByKey(provinces, key, direction = "desc", end = 5) {
   return slice(orderBy(provinces, [key], [direction]), 0, end);
+}
+
+export function getReportNumber() {
+  return differenceInDays(todaysDate, new Date(REPORTS_STARTED_DATE));
 }
 
 export function setTimeToDate(date) {

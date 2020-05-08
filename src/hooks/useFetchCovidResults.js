@@ -75,7 +75,7 @@ function getCurrentDateInfo(currentDate, startDate, endDate) {
 
 function addExtraDataToProvinces(current, nextItem) {
   const newProvincesData = [];
-  const totalDeaths = current.deaths;
+  const totalConfirmed = current.confirmed;
 
   if (has(current, "provinces")) {
     const provinces = reverse(current.provinces);
@@ -97,7 +97,7 @@ function addExtraDataToProvinces(current, nextItem) {
         ...province,
         confirmedPercentage: confirmedPercent,
         deathsPercent: deathsPercent,
-        deathsRate: province.deaths / totalDeaths,
+        deathsRate: province.deaths / totalConfirmed,
         infectionFactor: provinceInfectionFactor,
         cumulativeIncidence: (province.confirmed / total) * 100000,
         confirmedVariation: province.confirmed - item.confirmed,
