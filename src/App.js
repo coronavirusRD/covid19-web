@@ -1,11 +1,10 @@
 import "./App.scss";
 import React, { lazy, Suspense } from "react";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import {
   CssBaseline,
-  createMuiTheme,
+  createTheme,
   responsiveFontSizes,
   ThemeProvider,
 } from "@material-ui/core";
@@ -15,7 +14,7 @@ import CircularLoader from "./components/CircularLoader";
 
 const Home = lazy(() => import("./views/Home"));
 
-let theme = createMuiTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: "#12454d",
@@ -31,6 +30,7 @@ let theme = createMuiTheme({
 
 const client = new ApolloClient({
   uri: "https://covid19-graphql.now.sh/",
+  cache: new InMemoryCache(),
 });
 
 theme = responsiveFontSizes(theme);

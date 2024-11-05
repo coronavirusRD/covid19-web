@@ -19,20 +19,6 @@ const Header = () => {
               Rep&uacute;blica Dominicana
             </Typography>
           </Grid>
-          <Grid className="header-right-column" item md={5}>
-            <Typography variant="h5" align="right">
-              INFORME #{getReportNumber()}
-            </Typography>
-            <Typography variant="h6" align="right">
-              Preparado por: Ing. Juan C. Salad&iacute;n Bonilla
-            </Typography>
-            <Typography variant="h6" align="right">
-              Director de Calidad en Guzm&aacute;n Ariza | Vice-chair ASQ SDQ
-            </Typography>
-            <Typography variant="h6" align="right">
-              juancsaladin@gmail.com
-            </Typography>
-          </Grid>
         </Grid>
       </Toolbar>
     </AppBar>

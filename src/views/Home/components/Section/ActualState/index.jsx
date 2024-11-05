@@ -22,7 +22,7 @@ const ActualStateSection = ({
       <Grid
         className="covid19-info-container"
         container
-        justify="space-between"
+        justifyContent="space-between"
       >
         <Header year={date.year} month={date.month} />
         <HeaderPaper

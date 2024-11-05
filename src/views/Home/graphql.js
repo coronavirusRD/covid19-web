@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 export const COVID_RESULTS = gql`
   query results($countries: [String], $date: DateInput) {

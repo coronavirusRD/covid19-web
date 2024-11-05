@@ -16,7 +16,7 @@ const StickyNote = ({ className, type, value, title, description }) => {
       type={type}
     >
       {type !== NOTE && (
-        <Grid container alignItems="center" justify="space-between">
+        <Grid container alignItems="center" justifyContent="space-between">
           <Grid item xs={5}>
             <Typography className="covid19-sticky-notes-value" variant="h2">
               {numberWithCommas(value)}

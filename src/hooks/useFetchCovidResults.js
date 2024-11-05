@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import isEmpty from "lodash/isEmpty";
 import find from "lodash/find";
 import reverse from "lodash/reverse";
 import slice from "lodash/slice";
-import { addDays, differenceInDays, isToday } from "date-fns";
+import { addDays, isToday } from "date-fns";
 import extraData from "../resources/data/covid19";
 import provincesData from "../resources/data/provincias";
 import {
@@ -121,15 +121,19 @@ function addExtraDataToInsultationType(current, old) {
 function addExtraDataToResults(results) {
   const newResults = [];
 
-  results.forEach((result) => {
-    const item = find(extraData, { date: result.date });
+  extraData.forEach((d) => {
+    let item = find(results, { date: d.date });
 
     if (item) {
-      item.total_tests =
-        has(result, "confirmed") && has(item, "discarded")
-          ? result.confirmed + item.discarded
-          : 0;
-      newResults.push(Object.assign(result, item));
+      item = {
+        ...d,
+        ...item,
+        total_tests: has(item, "confirmed") && has(d, "discarded")
+        ? item.confirmed + d.discarded
+        : 0
+      }
+
+      newResults.push(Object.assign(d, item));
     }
   });
 
@@ -151,22 +155,13 @@ export function useFetchCovidResults(query, countries, date, limit) {
   const { data, loading } = useQuery(query, {
     variables: {
       countries: countries,
-      date: { gt: oldDate },
+      date: { lt: oldDate },
     },
   });
 
   if (data && !loading) {
     let newResults = data.results;
     let average = 0;
-    const lastAPIDate = new Date(newResults[newResults.length - 1].date);
-    const lastCovid19Date = new Date(extraData[extraData.length - 1].date);
-    const needToAddNewData =
-      differenceInDays(lastCovid19Date, lastAPIDate) >= 1;
-    const newData = { date: formatToAPIDate(new Date()) };
-
-    /* The API we are using right now is adding today's data at 8:00 PM and DR new report is at 10 AM,
-    so we need to manually insert the data */
-    if (needToAddNewData) newResults = newResults.concat(newData);
 
     newResults = addExtraDataToResults(newResults);
 
@@ -202,7 +197,7 @@ export function useFetchCovidResults(query, countries, date, limit) {
     startDate = new Date(replaceDashDate(results[0].date));
     endDate = new Date(replaceDashDate(results[results.length - 1].date));
 
-    const values = getGeneralValues(results, originalDate, newDate);
+    const values = getGeneralValues(results, oldDate, oldDate);
 
     currentData = values.currentData;
     oldData = values.oldData;
