@@ -10,7 +10,6 @@ import {
   formatToFullDate,
   formatToLongDate,
   formatToShortDate,
-  formatToAPIDate,
   getLongWeekday,
   getLongMonth,
   getDate,
@@ -26,15 +25,8 @@ function getInfectionFactor(current, old) {
     : 0;
 }
 
-function getGeneralValues(results, originalDate, newDate) {
-  let idx = 0;
-
-  if (isToday(originalDate)) {
-    idx = results.length - 1;
-  } else if (!isToday(originalDate)) {
-    const d = formatToAPIDate(newDate);
-    idx = results.findIndex((result) => result.date === d);
-  }
+function getGeneralValues(results) {
+  let idx = results.length - 1;
 
   const currentData = results[idx];
   const oldData = results[idx - 1];
@@ -141,7 +133,8 @@ function addExtraDataToResults(results) {
 }
 
 export function useFetchCovidResults(query, countries, date, limit) {
-  const { oldDate, newDate, originalDate } = getDate(date, limit);
+  const { newDate } = getDate(date, limit);
+
   let results = [];
   let isLoading = true;
   let currentData = undefined;
@@ -155,7 +148,7 @@ export function useFetchCovidResults(query, countries, date, limit) {
   const { data, loading } = useQuery(query, {
     variables: {
       countries: countries,
-      date: { lt: oldDate },
+      date: { lt: newDate },
     },
   });
 
@@ -197,7 +190,7 @@ export function useFetchCovidResults(query, countries, date, limit) {
     startDate = new Date(replaceDashDate(results[0].date));
     endDate = new Date(replaceDashDate(results[results.length - 1].date));
 
-    const values = getGeneralValues(results, oldDate, oldDate);
+    const values = getGeneralValues(results);
 
     currentData = values.currentData;
     oldData = values.oldData;
